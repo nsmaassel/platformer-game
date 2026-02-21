@@ -1,0 +1,87 @@
+[gd_scene load_steps=8 format=3 uid="uid://d8k2r3m9pq5x4"]
+
+[ext_resource type="PackedScene" uid="uid://b4j1qe7pxr6x1" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://c9j3q5tpxr6x2" path="res://scenes/goal.tscn" id="2_goal"]
+[ext_resource type="Script" uid="uid://d1lv8n2mxq4z3" path="res://scripts/level.gd" id="3_level"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(480.0, 12.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platA"]
+size = Vector2(80.0, 12.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platB"]
+size = Vector2(100.0, 12.0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platC"]
+size = Vector2(80.0, 12.0)
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("3_level")
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="Platforms"]
+position = Vector2(240.0, 258.0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Ground"]
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="Visual" type="Polygon2D" parent="Platforms/Ground"]
+polygon = PackedVector2Array(-240, -6, 240, -6, 240, 6, -240, 6)
+color = Color(0.396, 0.243, 0.122, 1.0)
+
+[node name="PlatformA" type="StaticBody2D" parent="Platforms"]
+position = Vector2(120.0, 210.0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/PlatformA"]
+shape = SubResource("RectangleShape2D_platA")
+
+[node name="Visual" type="Polygon2D" parent="Platforms/PlatformA"]
+polygon = PackedVector2Array(-40, -6, 40, -6, 40, 6, -40, 6)
+color = Color(0.376, 0.647, 0.239, 1.0)
+
+[node name="PlatformB" type="StaticBody2D" parent="Platforms"]
+position = Vector2(280.0, 172.0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/PlatformB"]
+shape = SubResource("RectangleShape2D_platB")
+
+[node name="Visual" type="Polygon2D" parent="Platforms/PlatformB"]
+polygon = PackedVector2Array(-50, -6, 50, -6, 50, 6, -50, 6)
+color = Color(0.376, 0.647, 0.239, 1.0)
+
+[node name="PlatformC" type="StaticBody2D" parent="Platforms"]
+position = Vector2(420.0, 137.0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/PlatformC"]
+shape = SubResource("RectangleShape2D_platC")
+
+[node name="Visual" type="Polygon2D" parent="Platforms/PlatformC"]
+polygon = PackedVector2Array(-40, -6, 40, -6, 40, 6, -40, 6)
+color = Color(0.376, 0.647, 0.239, 1.0)
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(40.0, 238.0)
+
+[node name="Goal" parent="." instance=ExtResource("2_goal")]
+position = Vector2(420.0, 107.0)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="LivesLabel" type="Label" parent="HUD"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 120.0
+offset_bottom = 28.0
+text = "Lives: 3"
+theme_override_font_sizes/font_size = 12
+
+[node name="LevelLabel" type="Label" parent="HUD"]
+offset_left = 200.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 28.0
+text = "Level 1"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
