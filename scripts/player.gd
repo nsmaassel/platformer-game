@@ -19,14 +19,22 @@ var _jump_buffer_timer: float = 0.0
 var _invincible: bool = false
 
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var _placeholder: Polygon2D = $Placeholder
 @onready var _stomp_area: Area2D = $StompArea
 @onready var _hurt_area: Area2D = $HurtArea
+
+var _has_sprites: bool = false
 
 
 func _ready() -> void:
 	add_to_group("player")
 	_stomp_area.body_entered.connect(_on_stomp)
 	_hurt_area.body_entered.connect(_on_hurt)
+
+	# Use real sprites if any frames are loaded, otherwise show placeholder
+	_has_sprites = _sprite.sprite_frames != null and _sprite.sprite_frames.get_animation_names().size() > 0 and _sprite.sprite_frames.get_frame_count("idle") > 0
+	_sprite.visible = _has_sprites
+	_placeholder.visible = not _has_sprites
 
 	# Respawn at checkpoint if one was set
 	if GameState.checkpoint_position != Vector2.ZERO:
@@ -79,6 +87,10 @@ func _physics_process(delta: float) -> void:
 
 
 func _update_animation() -> void:
+	if not _has_sprites:
+		# Flip placeholder to face direction
+		_placeholder.scale.x = -1.0 if _sprite.flip_h else 1.0
+		return
 	if not is_on_floor():
 		if velocity.y < 0.0:
 			_sprite.play("jump")
