@@ -1,5 +1,5 @@
 ## Player — CharacterBody2D
-## Handles movement, jumping, animation, and death.
+## Handles movement, jumping, animation, stomp attacks, and death.
 ## Requires input actions: move_left, move_right, jump (set in project.godot)
 extends CharacterBody2D
 
@@ -7,6 +7,7 @@ extends CharacterBody2D
 const SPEED: float = 150.0
 const JUMP_VELOCITY: float = -360.0
 const GRAVITY: float = 980.0
+const STOMP_BOUNCE: float = -240.0  # smaller bounce after stomping an enemy
 
 # Coyote time: allows jumping briefly after walking off a ledge
 const COYOTE_TIME: float = 0.12
@@ -15,12 +16,21 @@ const JUMP_BUFFER_TIME: float = 0.12
 
 var _coyote_timer: float = 0.0
 var _jump_buffer_timer: float = 0.0
+var _invincible: bool = false
 
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var _stomp_area: Area2D = $StompArea
+@onready var _hurt_area: Area2D = $HurtArea
 
 
 func _ready() -> void:
 	add_to_group("player")
+	_stomp_area.body_entered.connect(_on_stomp)
+	_hurt_area.body_entered.connect(_on_hurt)
+
+	# Respawn at checkpoint if one was set
+	if GameState.checkpoint_position != Vector2.ZERO:
+		global_position = GameState.checkpoint_position
 
 
 func _physics_process(delta: float) -> void:
@@ -87,3 +97,27 @@ func _die() -> void:
 		get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
 	else:
 		get_tree().reload_current_scene()
+
+
+func _on_stomp(body: Node2D) -> void:
+	# Stomp area is at player's feet — kill the enemy and bounce
+	if body.has_method("stomp"):
+		body.stomp()
+		GameState.add_score(100)
+		velocity.y = STOMP_BOUNCE
+
+
+func _on_hurt(body: Node2D) -> void:
+	# Side/bottom contact with an enemy — take damage
+	if _invincible:
+		return
+	if body.is_in_group("enemy"):
+		_invincible = true
+		GameState.lives -= 1
+		if GameState.lives <= 0:
+			GameState.reset()
+			get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+		else:
+			# Brief knockback then reload
+			await get_tree().create_timer(0.5).timeout
+			get_tree().reload_current_scene()

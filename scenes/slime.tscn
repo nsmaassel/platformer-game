@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://e5m1n7pqr8x3y"]
+
+[ext_resource type="Script" uid="uid://cef7m2nxq9r4z" path="res://scripts/slime.gd" id="1_slime"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_slime"]
+size = Vector2(14.0, 10.0)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_slime"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"walk",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurt"]
+size = Vector2(10.0, 4.0)
+
+[node name="Slime" type="CharacterBody2D"]
+script = ExtResource("1_slime")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.0, 0.0)
+shape = SubResource("RectangleShape2D_slime")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_slime")
+
+[node name="LedgeCheck" type="RayCast2D" parent="."]
+position = Vector2(8.0, 0.0)
+target_position = Vector2(0.0, 14.0)
+enabled = true
+
+[node name="StompArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="StompCollision" type="CollisionShape2D" parent="StompArea"]
+position = Vector2(0.0, -7.0)
+shape = SubResource("RectangleShape2D_hurt")
+
+[node name="BodyArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="BodyCollision" type="CollisionShape2D" parent="BodyArea"]
+position = Vector2(0.0, 2.0)
+shape = SubResource("RectangleShape2D_slime")

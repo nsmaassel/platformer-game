@@ -13,6 +13,7 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 
 	GameState.current_level += 1
+	GameState.clear_checkpoint()  # Fresh start on the new level
 	var next_scene := "res://scenes/level_%d.tscn" % GameState.current_level
 
 	if ResourceLoader.exists(next_scene):
