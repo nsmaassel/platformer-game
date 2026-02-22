@@ -9,7 +9,14 @@ dist/
 Thumbs.db
 
 # Editor metadata
-.vscode/
 .idea/
 *.swp
 *~
+
+# VS Code — track settings.json and tasks.json, ignore personal files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+
+# Sprite generation artifacts (regenerated, not source)
+sprites-review.png

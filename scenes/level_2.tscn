@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://h8p4r0stu1a6b"]
+[gd_scene load_steps=9 format=3 uid="uid://h8p4r0stu1a6b"]
 
 [ext_resource type="PackedScene" uid="uid://b4j1qe7pxr6x1" path="res://scenes/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://c9j3q5tpxr6x2" path="res://scenes/goal.tscn" id="2_goal"]
@@ -6,120 +6,104 @@
 [ext_resource type="PackedScene" uid="uid://e5m1n7pqr8x3y" path="res://scenes/slime.tscn" id="4_slime"]
 [ext_resource type="PackedScene" uid="uid://f6n2p8qrs9y4z" path="res://scenes/coin.tscn" id="5_coin"]
 [ext_resource type="PackedScene" uid="uid://g7o3q9rst0z5a" path="res://scenes/checkpoint.tscn" id="6_checkpoint"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
-size = Vector2(960.0, 12.0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1"]
-size = Vector2(80.0, 12.0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p2"]
-size = Vector2(96.0, 12.0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p3"]
-size = Vector2(64.0, 12.0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p4"]
-size = Vector2(112.0, 12.0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5"]
-size = Vector2(80.0, 12.0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
-size = Vector2(12.0, 200.0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pit_edge"]
-size = Vector2(12.0, 12.0)
+[ext_resource type="TileSet" uid="uid://ts_platformer_01" path="res://assets/tileset.tres" id="7_tileset"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bg/cloud_left.png" id="8_cloud_l"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bg/cloud_right.png" id="9_cloud_r"]
+[ext_resource type="Texture2D" path="res://assets/sprites/bg/bush.png" id="10_bush"]
 
 [node name="Level2" type="Node2D"]
 script = ExtResource("3_level")
 
-[node name="Platforms" type="Node2D" parent="."]
+[node name="Sky" type="ColorRect" parent="."]
+offset_right = 960.0
+offset_bottom = 270.0
+color = Color(0.53, 0.81, 0.92, 1.0)
 
-[node name="Ground" type="StaticBody2D" parent="Platforms"]
-position = Vector2(480.0, 258.0)
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Ground"]
-shape = SubResource("RectangleShape2D_ground")
-[node name="Visual" type="Polygon2D" parent="Platforms/Ground"]
-polygon = PackedVector2Array(-480, -6, 480, -6, 480, 6, -480, 6)
-color = Color(0.396, 0.243, 0.122, 1.0)
+[node name="Cloud1L" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(80.0, 35.0)
+texture = ExtResource("8_cloud_l")
 
-[node name="PlatformA" type="StaticBody2D" parent="Platforms"]
-position = Vector2(160.0, 220.0)
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/PlatformA"]
-shape = SubResource("RectangleShape2D_p1")
-[node name="Visual" type="Polygon2D" parent="Platforms/PlatformA"]
-polygon = PackedVector2Array(-40, -6, 40, -6, 40, 6, -40, 6)
-color = Color(0.376, 0.647, 0.239, 1.0)
+[node name="Cloud1R" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(96.0, 35.0)
+texture = ExtResource("9_cloud_r")
 
-[node name="PlatformB" type="StaticBody2D" parent="Platforms"]
-position = Vector2(320.0, 190.0)
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/PlatformB"]
-shape = SubResource("RectangleShape2D_p2")
-[node name="Visual" type="Polygon2D" parent="Platforms/PlatformB"]
-polygon = PackedVector2Array(-48, -6, 48, -6, 48, 6, -48, 6)
-color = Color(0.376, 0.647, 0.239, 1.0)
+[node name="Cloud2L" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(350.0, 50.0)
+texture = ExtResource("8_cloud_l")
 
-[node name="PlatformC" type="StaticBody2D" parent="Platforms"]
-position = Vector2(500.0, 165.0)
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/PlatformC"]
-shape = SubResource("RectangleShape2D_p3")
-[node name="Visual" type="Polygon2D" parent="Platforms/PlatformC"]
-polygon = PackedVector2Array(-32, -6, 32, -6, 32, 6, -32, 6)
-color = Color(0.376, 0.647, 0.239, 1.0)
+[node name="Cloud2R" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(366.0, 50.0)
+texture = ExtResource("9_cloud_r")
 
-[node name="PlatformD" type="StaticBody2D" parent="Platforms"]
-position = Vector2(680.0, 200.0)
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/PlatformD"]
-shape = SubResource("RectangleShape2D_p4")
-[node name="Visual" type="Polygon2D" parent="Platforms/PlatformD"]
-polygon = PackedVector2Array(-56, -6, 56, -6, 56, 6, -56, 6)
-color = Color(0.376, 0.647, 0.239, 1.0)
+[node name="Cloud3L" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(650.0, 30.0)
+texture = ExtResource("8_cloud_l")
 
-[node name="PlatformE" type="StaticBody2D" parent="Platforms"]
-position = Vector2(870.0, 156.0)
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/PlatformE"]
-shape = SubResource("RectangleShape2D_p5")
-[node name="Visual" type="Polygon2D" parent="Platforms/PlatformE"]
-polygon = PackedVector2Array(-40, -6, 40, -6, 40, 6, -40, 6)
-color = Color(0.376, 0.647, 0.239, 1.0)
+[node name="Cloud3R" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(666.0, 30.0)
+texture = ExtResource("9_cloud_r")
+
+[node name="Bush1" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(240.0, 234.0)
+texture = ExtResource("10_bush")
+
+[node name="Bush2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(560.0, 234.0)
+texture = ExtResource("10_bush")
+
+[node name="Bush3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(800.0, 234.0)
+texture = ExtResource("10_bush")
+
+[node name="Terrain" type="TileMapLayer" parent="."]
+tile_set = ExtResource("7_tileset")
+tile_map_data = PackedInt32Array(983040, 0, 0, 983041, 0, 0, 983042, 0, 0, 983043, 0, 0, 983044, 0, 0, 983045, 0, 0, 983046, 0, 0, 983047, 0, 0, 983048, 0, 0, 983049, 0, 0, 983050, 0, 0, 983051, 0, 0, 983052, 0, 0, 983053, 0, 0, 983054, 0, 0, 983055, 0, 0, 983056, 0, 0, 983057, 0, 0, 983058, 0, 0, 983059, 0, 0, 983060, 0, 0, 983061, 0, 0, 983062, 0, 0, 983063, 0, 0, 983064, 0, 0, 983065, 0, 0, 983066, 0, 0, 983067, 0, 0, 983068, 0, 0, 983069, 0, 0, 983070, 0, 0, 983071, 0, 0, 983072, 0, 0, 983073, 0, 0, 983074, 0, 0, 983075, 0, 0, 983076, 0, 0, 983077, 0, 0, 983078, 0, 0, 983079, 0, 0, 983080, 0, 0, 983081, 0, 0, 983082, 0, 0, 983083, 0, 0, 983084, 0, 0, 983085, 0, 0, 983086, 0, 0, 983087, 0, 0, 983088, 0, 0, 983089, 0, 0, 983090, 0, 0, 983091, 0, 0, 983092, 0, 0, 983093, 0, 0, 983094, 0, 0, 983095, 0, 0, 983096, 0, 0, 983097, 0, 0, 983098, 0, 0, 983099, 0, 0, 1048576, 65536, 0, 1048577, 65536, 0, 1048578, 65536, 0, 1048579, 65536, 0, 1048580, 65536, 0, 1048581, 65536, 0, 1048582, 65536, 0, 1048583, 65536, 0, 1048584, 65536, 0, 1048585, 65536, 0, 1048586, 65536, 0, 1048587, 65536, 0, 1048588, 65536, 0, 1048589, 65536, 0, 1048590, 65536, 0, 1048591, 65536, 0, 1048592, 65536, 0, 1048593, 65536, 0, 1048594, 65536, 0, 1048595, 65536, 0, 1048596, 65536, 0, 1048597, 65536, 0, 1048598, 65536, 0, 1048599, 65536, 0, 1048600, 65536, 0, 1048601, 65536, 0, 1048602, 65536, 0, 1048603, 65536, 0, 1048604, 65536, 0, 1048605, 65536, 0, 1048606, 65536, 0, 1048607, 65536, 0, 1048608, 65536, 0, 1048609, 65536, 0, 1048610, 65536, 0, 1048611, 65536, 0, 1048612, 65536, 0, 1048613, 65536, 0, 1048614, 65536, 0, 1048615, 65536, 0, 1048616, 65536, 0, 1048617, 65536, 0, 1048618, 65536, 0, 1048619, 65536, 0, 1048620, 65536, 0, 1048621, 65536, 0, 1048622, 65536, 0, 1048623, 65536, 0, 1048624, 65536, 0, 1048625, 65536, 0, 1048626, 65536, 0, 1048627, 65536, 0, 1048628, 65536, 0, 1048629, 65536, 0, 1048630, 65536, 0, 1048631, 65536, 0, 1048632, 65536, 0, 1048633, 65536, 0, 1048634, 65536, 0, 1048635, 65536, 0, 851975, 262144, 0, 851976, 327680, 0, 851977, 327680, 0, 851978, 327680, 0, 851979, 393216, 0, 720913, 262144, 0, 720914, 327680, 0, 720915, 327680, 0, 720916, 327680, 0, 720917, 327680, 0, 720918, 393216, 0, 589853, 262144, 0, 589854, 327680, 0, 589855, 327680, 0, 589856, 393216, 0, 786471, 262144, 0, 786472, 327680, 0, 786473, 327680, 0, 786474, 327680, 0, 786475, 327680, 0, 786476, 327680, 0, 786477, 393216, 0, 589876, 262144, 0, 589877, 327680, 0, 589878, 327680, 0, 589879, 327680, 0, 589880, 393216, 0)
 
 [node name="Player" parent="." instance=ExtResource("1_player")]
-position = Vector2(40.0, 238.0)
+position = Vector2(40.0, 226.0)
 
 [node name="Goal" parent="." instance=ExtResource("2_goal")]
-position = Vector2(870.0, 126.0)
+position = Vector2(864.0, 124.0)
 
 [node name="Checkpoint1" parent="." instance=ExtResource("6_checkpoint")]
-position = Vector2(500.0, 140.0)
+position = Vector2(504.0, 124.0)
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Slime1" parent="Enemies" instance=ExtResource("4_slime")]
-position = Vector2(320.0, 178.0)
+position = Vector2(312.0, 171.0)
 
 [node name="Slime2" parent="Enemies" instance=ExtResource("4_slime")]
-position = Vector2(680.0, 188.0)
+position = Vector2(680.0, 187.0)
 
 [node name="Slime3" parent="Enemies" instance=ExtResource("4_slime")]
-position = Vector2(720.0, 188.0)
+position = Vector2(720.0, 187.0)
 
 [node name="Coins" type="Node2D" parent="."]
 
 [node name="Coin1" parent="Coins" instance=ExtResource("5_coin")]
-position = Vector2(160.0, 202.0)
+position = Vector2(152.0, 198.0)
 
 [node name="Coin2" parent="Coins" instance=ExtResource("5_coin")]
-position = Vector2(320.0, 172.0)
+position = Vector2(312.0, 162.0)
 
 [node name="Coin3" parent="Coins" instance=ExtResource("5_coin")]
-position = Vector2(500.0, 147.0)
+position = Vector2(496.0, 130.0)
 
 [node name="Coin4" parent="Coins" instance=ExtResource("5_coin")]
-position = Vector2(540.0, 147.0)
+position = Vector2(528.0, 130.0)
 
 [node name="Coin5" parent="Coins" instance=ExtResource("5_coin")]
-position = Vector2(680.0, 182.0)
+position = Vector2(680.0, 178.0)
 
 [node name="HUD" type="CanvasLayer" parent="."]
 

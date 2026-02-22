@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "🎮 Run Game",
+      "type": "shell",
+      "command": "godot",
+      "args": ["--path", ".", "--main-scene", "scenes/main_menu.tscn"],
+      "group": "build",
+      "detail": "Launch the game from main menu"
+    },
+    {
+      "label": "🎨 Generate Sprites",
+      "type": "shell",
+      "command": "python",
+      "args": ["generate-sprites.py"],
+      "group": "build",
+      "detail": "Regenerate all procedural sprites (Python + Pillow)"
+    },
+    {
+      "label": "📦 Export HTML5",
+      "type": "shell",
+      "command": "godot",
+      "args": ["--headless", "--export-release", "Web", "dist/index.html"],
+      "group": "build",
+      "detail": "Export game as HTML5 to dist/ for deployment"
+    },
+    {
+      "label": "🔄 Re-import Assets",
+      "type": "shell",
+      "command": "godot",
+      "args": ["--headless", "--import"],
+      "group": "none",
+      "detail": "Force Godot to re-import all assets (run after adding new PNGs externally)"
+    }
+  ]
+}

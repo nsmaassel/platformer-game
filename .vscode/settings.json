@@ -1,0 +1,26 @@
+{
+  "files.associations": {
+    "*.gd": "gdscript",
+    "*.tscn": "godot-resource",
+    "*.tres": "godot-resource",
+    "*.godot": "ini"
+  },
+  "files.exclude": {
+    ".godot/": true,
+    "**/*.import": true
+  },
+  "search.exclude": {
+    ".godot/": true,
+    "dist/": true
+  },
+  "editor.tabSize": 4,
+  "editor.insertSpaces": false,
+  "[gdscript]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
+  },
+  "[python]": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true
+  }
+}

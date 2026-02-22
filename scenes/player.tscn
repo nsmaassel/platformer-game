@@ -1,33 +1,101 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4j1qe7pxr6x1"]
+[gd_scene load_steps=22 format=3 uid="uid://b4j1qe7pxr6x1"]
 
 [ext_resource type="Script" uid="uid://cba3t0s1c8d1b" path="res://scripts/player.gd" id="1_player"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/idle_0.png" id="p_idle_0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/idle_1.png" id="p_idle_1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/idle_2.png" id="p_idle_2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/idle_3.png" id="p_idle_3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/run_0.png" id="p_run_0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/run_1.png" id="p_run_1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/run_2.png" id="p_run_2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/run_3.png" id="p_run_3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/run_4.png" id="p_run_4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/run_5.png" id="p_run_5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/jump_0.png" id="p_jump_0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/jump_1.png" id="p_jump_1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/fall_0.png" id="p_fall_0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/fall_1.png" id="p_fall_1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/hurt_0.png" id="p_hurt_0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/hurt_1.png" id="p_hurt_1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player/hurt_2.png" id="p_hurt_2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
 size = Vector2(12.0, 28.0)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_player"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("p_fall_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_fall_1")
+}],
 "loop": true,
 "name": &"fall",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("p_hurt_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_hurt_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_hurt_2")
+}],
 "loop": false,
 "name": &"hurt",
 "speed": 8.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("p_idle_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_idle_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_idle_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_idle_3")
+}],
 "loop": true,
 "name": &"idle",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("p_jump_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_jump_1")
+}],
 "loop": true,
 "name": &"jump",
 "speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("p_run_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_run_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_run_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_run_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_run_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_run_5")
+}],
 "loop": true,
 "name": &"run",
 "speed": 10.0
@@ -49,9 +117,9 @@ shape = SubResource("RectangleShape2D_player")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_player")
-visible = false
 
 [node name="Placeholder" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(-6, -14, 6, -14, 6, 14, -6, 14)
 color = Color(0.2, 0.6, 1.0, 1.0)
 

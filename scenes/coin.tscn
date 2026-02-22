@@ -1,18 +1,58 @@
-[gd_scene load_steps=4 format=3 uid="uid://f6n2p8qrs9y4z"]
+[gd_scene load_steps=13 format=3 uid="uid://f6n2p8qrs9y4z"]
 
 [ext_resource type="Script" uid="uid://ccf8n3oxr5s5w" path="res://scripts/coin.gd" id="1_coin"]
+[ext_resource type="Texture2D" path="res://assets/sprites/coin/idle_0.png" id="c_idle_0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/coin/idle_1.png" id="c_idle_1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/coin/idle_2.png" id="c_idle_2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/coin/idle_3.png" id="c_idle_3"]
+[ext_resource type="Texture2D" path="res://assets/sprites/coin/idle_4.png" id="c_idle_4"]
+[ext_resource type="Texture2D" path="res://assets/sprites/coin/idle_5.png" id="c_idle_5"]
+[ext_resource type="Texture2D" path="res://assets/sprites/coin/collect_0.png" id="c_collect_0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/coin/collect_1.png" id="c_collect_1"]
+[ext_resource type="Texture2D" path="res://assets/sprites/coin/collect_2.png" id="c_collect_2"]
+[ext_resource type="Texture2D" path="res://assets/sprites/coin/collect_3.png" id="c_collect_3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_coin"]
 radius = 6.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_coin"]
 animations = [{
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("c_idle_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("c_idle_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("c_idle_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("c_idle_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("c_idle_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("c_idle_5")
+}],
 "loop": true,
 "name": &"idle",
 "speed": 8.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("c_collect_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("c_collect_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("c_collect_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("c_collect_3")
+}],
 "loop": false,
 "name": &"collect",
 "speed": 12.0
@@ -29,7 +69,9 @@ shape = SubResource("CircleShape2D_coin")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_coin")
+autoplay = &"idle"
 
 [node name="Visual" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(0, -6, 4.2, -4.2, 6, 0, 4.2, 4.2, 0, 6, -4.2, 4.2, -6, 0, -4.2, -4.2)
 color = Color(1.0, 0.84, 0.0, 1.0)

@@ -1,9 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://c9j3q5tpxr6x2"]
+[gd_scene load_steps=5 format=3 uid="uid://c9j3q5tpxr6x2"]
 
 [ext_resource type="Script" uid="uid://cca3t1s0c8d2c" path="res://scripts/goal.gd" id="1_goal"]
+[ext_resource type="Texture2D" path="res://assets/sprites/goal/idle_0.png" id="g_idle_0"]
+[ext_resource type="Texture2D" path="res://assets/sprites/goal/idle_1.png" id="g_idle_1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_goal"]
 size = Vector2(20.0, 40.0)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_goal"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("g_idle_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("g_idle_1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}]
 
 [node name="Goal" type="Area2D"]
 collision_layer = 0
@@ -13,14 +29,22 @@ script = ExtResource("1_goal")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_goal")
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_goal")
+autoplay = &"idle"
+
 [node name="Visual" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(-10, -20, 10, -20, 10, 20, -10, 20)
 color = Color(1.0, 0.84, 0.0, 1.0)
 
 [node name="Pole" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(-2, -24, 2, -24, 2, 24, -2, 24)
 color = Color(0.7, 0.7, 0.7, 1.0)
 
 [node name="Flag" type="Polygon2D" parent="."]
+visible = false
 polygon = PackedVector2Array(2, -24, 18, -18, 2, -12)
 color = Color(0.9, 0.2, 0.2, 1.0)
