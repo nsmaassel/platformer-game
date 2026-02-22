@@ -12,6 +12,10 @@ var _direction: float = 1.0  # 1 = right, -1 = left
 @onready var _ledge_check: RayCast2D = $LedgeCheck
 
 
+func _ready() -> void:
+	add_to_group("enemy")
+
+
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y += GRAVITY * delta

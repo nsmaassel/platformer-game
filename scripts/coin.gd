@@ -18,8 +18,9 @@ func _on_body_entered(body: Node2D) -> void:
 	_collected = true
 	GameState.add_score(10)
 
-	# Play collect animation if defined, then remove
-	if _sprite.sprite_frames.has_animation("collect"):
+	# Play collect animation only if it has frames loaded (swapped in from Aseprite)
+	var frames := _sprite.sprite_frames
+	if frames != null and frames.has_animation("collect") and frames.get_frame_count("collect") > 0:
 		_sprite.play("collect")
 		await _sprite.animation_finished
 	queue_free()
