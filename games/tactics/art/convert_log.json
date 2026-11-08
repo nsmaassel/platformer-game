@@ -22,6 +22,27 @@
       ]
     },
     {
+      "name": "unit_frost_blade",
+      "mode": "single",
+      "raw": [
+        "unit_frost_blade.png"
+      ]
+    },
+    {
+      "name": "unit_ranger",
+      "mode": "single",
+      "raw": [
+        "unit_ranger.png"
+      ]
+    },
+    {
+      "name": "unit_cleric",
+      "mode": "single",
+      "raw": [
+        "unit_cleric.png"
+      ]
+    },
+    {
       "name": "tile_floor",
       "mode": "single",
       "raw": [
@@ -43,11 +64,7 @@
       ]
     }
   ],
-  "missing": [
-    "unit_frost_blade",
-    "unit_ranger",
-    "unit_cleric"
-  ],
+  "missing": [],
   "fallbacks": [
     "tile_lava: 1 raw frame(s) for 4; derived the rest by scrolling"
   ]

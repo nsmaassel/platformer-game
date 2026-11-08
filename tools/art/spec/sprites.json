@@ -58,8 +58,7 @@
       "frames": 4,
       "theme": "fantasy",
       "target_height": 28,
-      "brief": "Player hero, fast melee duelist. Light armour in blue ramp with steel plates, a short fur-trimmed half-cape, a slim curved ice blade (teal/white) held ready. Faces the viewer, turned slightly right (3/4), lighter stance than the knight. Idle: weight shifts 1 px, blade edge glints, frost motes drift.",
-      "pending": "not generated yet: the image model's quota ran out on 2026-11-08; queued prompts are at the end of games/tactics/art/PROMPTS.md"
+      "brief": "Player hero, fast melee duelist. Light armour in blue ramp with steel plates, a short fur-trimmed half-cape, a slim curved ice blade (teal/white) held ready. Faces the viewer, turned slightly right (3/4), lighter stance than the knight. Idle: weight shifts 1 px, blade edge glints, frost motes drift."
     },
     {
       "name": "unit_ranger",
@@ -71,8 +70,7 @@
       "frames": 4,
       "theme": "fantasy",
       "target_height": 28,
-      "brief": "Player hero, long-range archer. Hooded scout in forest-green cloak over brown leather (stone ramp), a tall longbow held vertically at the side (not drawn out wide), quiver on the back, gold sun clasp. Faces the viewer, turned slightly right (3/4). Idle: cloak sways, fingers tap the string, hood shadow shifts.",
-      "pending": "not generated yet: the image model's quota ran out on 2026-11-08; queued prompts are at the end of games/tactics/art/PROMPTS.md"
+      "brief": "Player hero, long-range archer. Hooded scout in forest-green cloak over brown leather (stone ramp), a tall longbow held vertically at the side (not drawn out wide), quiver on the back, gold sun clasp. Faces the viewer, turned slightly right (3/4). Idle: cloak sways, fingers tap the string, hood shadow shifts."
     },
     {
       "name": "unit_cleric",
@@ -84,8 +82,7 @@
       "frames": 4,
       "theme": "fantasy",
       "target_height": 28,
-      "brief": "Player hero, healer. Priest in pale robes (ink light ramp, near-white) with gold sun vestments, a short mace or sceptre topped with a sun disc, a soft gold halo glow near the hands. Faces the viewer, turned slightly right (3/4). Idle: robe sways, the sun disc pulses, small light motes.",
-      "pending": "not generated yet: the image model's quota ran out on 2026-11-08; queued prompts are at the end of games/tactics/art/PROMPTS.md"
+      "brief": "Player hero, healer. Priest in pale robes (ink light ramp, near-white) with gold sun vestments, a short mace or sceptre topped with a sun disc, a soft gold halo glow near the hands. Faces the viewer, turned slightly right (3/4). Idle: robe sways, the sun disc pulses, small light motes."
     },
     {
       "name": "tile_floor",

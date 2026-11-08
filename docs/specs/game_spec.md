@@ -49,7 +49,7 @@
 - **Output**: `games/tactics/assets/sprites/sun_steel/<name>.<frame>.png` (32×32 units with 4 idle frames, 24×24 tiles and props).
 - **Why**: a blind A/B against agent-drawn code sprites under the same contract; the owner picked the AI-image set ([review page](https://claude.ai/artifact/GtaUbQiKZym7X3L5sc3RC1), private). Retro Diffusion / PixelLab were not adopted.
 - **Roster theme**: fantasy (Sun Knight, Pyromancer, Frost Blade, Ranger, Cleric vs Golems). The August mech prototype art and its code names were removed on 2026-11-08; relics (`PartyManager.apply_relic`) replace the mech modules.
-- **In game**: the tactics prototype (`tactical_grid_prototype`) uses 24 px square cells (`GRID_SIZE`) and draws the Sun & Steel sprites as animated units and tiles; a hero without art yet shows its August placeholder.
+- **In game**: the tactics prototype (`tactical_grid_prototype`) uses 24 px square cells (`GRID_SIZE`) and draws the Sun & Steel sprites as animated units and tiles: all five heroes and the golems (a unit without art would fall back to its August placeholder).
 - **Open**: the floor tile repeats visibly; lava animation is a scroll of one image; the shrine slice and boss arena still use August art.
 - **Decoupled Engine Slot-In**: Node logic stays decoupled from PNG files so regenerated sprites drop in by name.
 
