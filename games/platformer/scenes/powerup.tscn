@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://p7o8w9star1"]
+
+[ext_resource type="Script" path="res://games/platformer/scripts/powerup.gd" id="1_powerup"]
+[ext_resource type="Texture2D" path="res://games/platformer/assets/sprites/powerup/idle_0.png" id="p_idle_0"]
+[ext_resource type="Texture2D" path="res://games/platformer/assets/sprites/powerup/idle_1.png" id="p_idle_1"]
+[ext_resource type="Texture2D" path="res://games/platformer/assets/sprites/powerup/idle_2.png" id="p_idle_2"]
+[ext_resource type="Texture2D" path="res://games/platformer/assets/sprites/powerup/idle_3.png" id="p_idle_3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_powerup"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("p_idle_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_idle_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_idle_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("p_idle_3")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_powerup"]
+radius = 8.0
+
+[node name="Powerup" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_powerup")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_powerup")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_powerup")

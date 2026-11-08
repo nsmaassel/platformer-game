@@ -1,0 +1,87 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7toyboxmenu01"]
+
+[ext_resource type="Script" path="res://games/toyboxes/scripts/toybox_menu.gd" id="1_tbmenu"]
+
+[node name="ToyboxMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_tbmenu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.1, 0.16, 1)
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -120.0
+offset_right = 210.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 6
+
+[node name="TitleLabel" type="Label" parent="VBox"]
+layout_mode = 2
+text = "OPUS CONCEPT TOYBOX SANDBOX"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
+
+[node name="DescLabel" type="Label" parent="VBox"]
+layout_mode = 2
+text = "Select a concept micro-prototype to test mechanics & game feel:"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 10
+
+[node name="Spacer" type="Control" parent="VBox"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="BtnSunSteel" type="Button" parent="VBox"]
+layout_mode = 2
+text = "★ [0/5] FLAGSHIP: Sun & Steel (Class Promotion + Spirit Magic)"
+
+[node name="BtnConceptA" type="Button" parent="VBox"]
+layout_mode = 2
+text = "[1] Concept A: Zelda x Golden Sun (Top-Down Action RPG)"
+
+[node name="BtnConceptB" type="Button" parent="VBox"]
+layout_mode = 2
+text = "[2] Concept B: Mega Man Battle Network (Real-Time 3x3 Grid)"
+
+[node name="BtnConceptC" type="Button" parent="VBox"]
+layout_mode = 2
+text = "[3] Concept C: Fire Emblem x Pokémon (Tactical Grid RPG)"
+
+[node name="BtnConceptD" type="Button" parent="VBox"]
+layout_mode = 2
+text = "[4] Concept D: Mega Man Zero x Golden Sun (Metroidvania Action)"
+
+[node name="Spacer2" type="Control" parent="VBox"]
+custom_minimum_size = Vector2(0, 4)
+layout_mode = 2
+
+[node name="BtnBack" type="Button" parent="VBox"]
+layout_mode = 2
+text = "Back to Main Menu"
+
+[connection signal="pressed" from="VBox/BtnSunSteel" to="." method="_on_btn_sun_steel_pressed"]
+[connection signal="pressed" from="VBox/BtnConceptA" to="." method="_on_btn_concept_a_pressed"]
+[connection signal="pressed" from="VBox/BtnConceptB" to="." method="_on_btn_concept_b_pressed"]
+[connection signal="pressed" from="VBox/BtnConceptC" to="." method="_on_btn_concept_c_pressed"]
+[connection signal="pressed" from="VBox/BtnConceptD" to="." method="_on_btn_concept_d_pressed"]
+[connection signal="pressed" from="VBox/BtnBack" to="." method="_on_btn_back_pressed"]

@@ -1,0 +1,54 @@
+{
+  "processed": [
+    {
+      "name": "unit_sun_knight",
+      "mode": "single",
+      "raw": [
+        "unit_sun_knight.png"
+      ]
+    },
+    {
+      "name": "unit_golem",
+      "mode": "single",
+      "raw": [
+        "unit_golem.png"
+      ]
+    },
+    {
+      "name": "unit_pyromancer",
+      "mode": "single",
+      "raw": [
+        "unit_pyromancer.png"
+      ]
+    },
+    {
+      "name": "tile_floor",
+      "mode": "single",
+      "raw": [
+        "tile_floor.png"
+      ]
+    },
+    {
+      "name": "tile_lava",
+      "mode": "single",
+      "raw": [
+        "tile_lava.png"
+      ]
+    },
+    {
+      "name": "prop_cover_rock",
+      "mode": "single",
+      "raw": [
+        "prop_cover_rock.png"
+      ]
+    }
+  ],
+  "missing": [
+    "unit_frost_blade",
+    "unit_ranger",
+    "unit_cleric"
+  ],
+  "fallbacks": [
+    "tile_lava: 1 raw frame(s) for 4; derived the rest by scrolling"
+  ]
+}

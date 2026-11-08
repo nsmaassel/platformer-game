@@ -1,0 +1,30 @@
+## Coin — Area2D collectible
+## Player collects on contact. +10 score, plays collect animation, then disappears.
+extends Area2D
+
+var _collected: bool = false
+
+@onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+
+func _ready() -> void:
+	add_to_group("coin")
+	body_entered.connect(_on_body_entered)
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if _collected or not body.is_in_group("player"):
+		return
+	_collected = true
+	const Telemetry = preload("res://shared/scripts/telemetry.gd")
+	GameState.play_sfx("coin")
+	GameState.add_score(10)
+	Telemetry.log_event("COIN_COLLECTED", "PLATFORMER", {"score": GameState.score})
+
+
+	# Play collect animation only if it has frames loaded (swapped in from Aseprite)
+	var frames := _sprite.sprite_frames
+	if frames != null and frames.has_animation("collect") and frames.get_frame_count("collect") > 0:
+		_sprite.play("collect")
+		await _sprite.animation_finished
+	queue_free()

@@ -1,0 +1,157 @@
+[gd_scene format=4]
+
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/goal.tscn" id="2_goal"]
+[ext_resource type="Script" path="res://games/platformer/scripts/level.gd" id="3_level"]
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/slime.tscn" id="4_slime"]
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/coin.tscn" id="5_coin"]
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/checkpoint.tscn" id="6_checkpoint"]
+[ext_resource type="TileSet" path="res://games/platformer/assets/tileset.tres" id="7_tileset"]
+[ext_resource type="Texture2D" path="res://games/platformer/assets/sprites/bg/cloud_left.png" id="8_cloud_l"]
+[ext_resource type="Texture2D" path="res://games/platformer/assets/sprites/bg/cloud_right.png" id="9_cloud_r"]
+[ext_resource type="Script" path="res://games/platformer/scripts/slime.gd" id="9_que50"]
+[ext_resource type="Texture2D" path="res://games/platformer/assets/sprites/bg/bush.png" id="10_bush"]
+
+[node name="Level2" type="Node2D" unique_id=707483938]
+script = ExtResource("3_level")
+level_width = 960
+
+[node name="Sky" type="ColorRect" parent="." unique_id=376862108]
+offset_right = 960.0
+offset_bottom = 270.0
+color = Color(0.53, 0.81, 0.92, 1)
+
+[node name="Cloud1L" type="Sprite2D" parent="." unique_id=1904257557]
+texture_filter = 1
+position = Vector2(80, 35)
+texture = ExtResource("8_cloud_l")
+
+[node name="Cloud1R" type="Sprite2D" parent="." unique_id=1456331678]
+texture_filter = 1
+position = Vector2(96, 35)
+texture = ExtResource("9_cloud_r")
+
+[node name="Cloud2L" type="Sprite2D" parent="." unique_id=161993563]
+texture_filter = 1
+position = Vector2(350, 50)
+texture = ExtResource("8_cloud_l")
+
+[node name="Cloud2R" type="Sprite2D" parent="." unique_id=2115188187]
+texture_filter = 1
+position = Vector2(366, 50)
+texture = ExtResource("9_cloud_r")
+
+[node name="Cloud3L" type="Sprite2D" parent="." unique_id=502616025]
+texture_filter = 1
+position = Vector2(650, 30)
+texture = ExtResource("8_cloud_l")
+
+[node name="Cloud3R" type="Sprite2D" parent="." unique_id=299463451]
+texture_filter = 1
+position = Vector2(666, 30)
+texture = ExtResource("9_cloud_r")
+
+[node name="Bush1" type="Sprite2D" parent="." unique_id=1302692349]
+texture_filter = 1
+position = Vector2(240, 234)
+texture = ExtResource("10_bush")
+
+[node name="Bush2" type="Sprite2D" parent="." unique_id=1818780538]
+texture_filter = 1
+position = Vector2(560, 234)
+texture = ExtResource("10_bush")
+
+[node name="Bush3" type="Sprite2D" parent="." unique_id=1425659305]
+texture_filter = 1
+position = Vector2(800, 234)
+texture = ExtResource("10_bush")
+
+[node name="Terrain" type="TileMapLayer" parent="." unique_id=1831653525]
+tile_map_data = PackedByteArray("AAAAAQAA//////////8ABQAA//////////8ACQAA//////////8ADQAA//////////8AEQAA//////////8AFQAA//////////8AGQAA//////////8AHQAA//////////8AIQAA//////////8AJQAA//////////8AKQAA//////////8ALQAA//////////8AMQAA//////////8ANQAA//////////8AOQAA//////////8ACAAA//////////8AHwAA//////////8AAA8AAAAAAAAAAAAAABAAAAABAAAAAAABAA8AAAAAAAAAAAABABAAAAABAAAAAAACAA8AAAAAAAAAAAACABAAAAABAAAAAAADAA8AAAAAAAAAAAADABAAAAABAAAAAAAEAA8AAAAAAAAAAAAEABAAAAABAAAAAAAFAA8AAAAAAAAAAAAFABAAAAABAAAAAAAGAA8AAAAAAAAAAAAGABAAAAABAAAAAAAHAA8AAAAAAAAAAAAHABAAAAABAAAAAAAIAA8AAAAAAAAAAAAIABAAAAABAAAAAAAJAA8AAAAAAAAAAAAJABAAAAABAAAAAAAKAA8AAAAAAAAAAAAKABAAAAABAAAAAAALAA8AAAAAAAAAAAALABAAAAABAAAAAAAMAA8AAAAAAAAAAAAMABAAAAABAAAAAAANAA8AAAAAAAAAAAANABAAAAABAAAAAAAOAA8AAAAAAAAAAAAOABAAAAABAAAAAAAPAA8AAAAAAAAAAAAPABAAAAABAAAAAAAQAA8AAAAAAAAAAAAQABAAAAABAAAAAAARAA8AAAAAAAAAAAARABAAAAABAAAAAAASAA8AAAAAAAAAAAASABAAAAABAAAAAAATAA8AAAAAAAAAAAATABAAAAABAAAAAAAUAA8AAAAAAAAAAAAUABAAAAABAAAAAAAVAA8AAAAAAAAAAAAVABAAAAABAAAAAAAWAA8AAAAAAAAAAAAWABAAAAABAAAAAAAXAA8AAAAAAAAAAAAXABAAAAABAAAAAAAYAA8AAAAAAAAAAAAYABAAAAABAAAAAAAZAA8AAAAAAAAAAAAZABAAAAABAAAAAAAaAA8AAAAAAAAAAAAaABAAAAABAAAAAAAbAA8AAAAAAAAAAAAbABAAAAABAAAAAAAcAA8AAAAAAAAAAAAcABAAAAABAAAAAAAdAA8AAAAAAAAAAAAdABAAAAABAAAAAAAeAA8AAAAAAAAAAAAeABAAAAABAAAAAAAfAA8AAAAAAAAAAAAfABAAAAABAAAAAAAgAA8AAAAAAAAAAAAgABAAAAABAAAAAAAhAA8AAAAAAAAAAAAhABAAAAABAAAAAAAiAA8AAAAAAAAAAAAiABAAAAABAAAAAAAjAA8AAAAAAAAAAAAjABAAAAABAAAAAAAkAA8AAAAAAAAAAAAkABAAAAABAAAAAAAlAA8AAAAAAAAAAAAlABAAAAABAAAAAAAmAA8AAAAAAAAAAAAmABAAAAABAAAAAAAnAA8AAAAAAAAAAAAnABAAAAABAAAAAAAoAA8AAAAAAAAAAAAoABAAAAABAAAAAAApAA8AAAAAAAAAAAApABAAAAABAAAAAAAqAA8AAAAAAAAAAAAqABAAAAABAAAAAAArAA8AAAAAAAAAAAArABAAAAABAAAAAAAsAA8AAAAAAAAAAAAsABAAAAABAAAAAAAtAA8AAAAAAAAAAAAtABAAAAABAAAAAAAuAA8AAAAAAAAAAAAuABAAAAABAAAAAAAvAA8AAAAAAAAAAAAvABAAAAABAAAAAAAwAA8AAAAAAAAAAAAwABAAAAABAAAAAAAxAA8AAAAAAAAAAAAxABAAAAABAAAAAAAyAA8AAAAAAAAAAAAyABAAAAABAAAAAAAzAA8AAAAAAAAAAAAzABAAAAABAAAAAAA0AA8AAAAAAAAAAAA0ABAAAAABAAAAAAA1AA8AAAAAAAAAAAA1ABAAAAABAAAAAAA2AA8AAAAAAAAAAAA2ABAAAAABAAAAAAA3AA8AAAAAAAAAAAA3ABAAAAABAAAAAAA4AA8AAAAAAAAAAAA4ABAAAAABAAAAAAA5AA8AAAAAAAAAAAA5ABAAAAABAAAAAAA6AA8AAAAAAAAAAAA6ABAAAAABAAAAAAA7AA8AAAAAAAAAAAA7ABAAAAABAAAAAAAHAA0AAAAEAAAAAAAIAA0AAAAFAAAAAAAJAA0AAAAFAAAAAAAKAA0AAAAFAAAAAAALAA0AAAAGAAAAAAARAAsAAAAEAAAAAAASAAsAAAAFAAAAAAATAAsAAAAFAAAAAAAUAAsAAAAFAAAAAAAVAAsAAAAFAAAAAAAWAAsAAAAGAAAAAAAdAAkAAAAEAAAAAAAeAAkAAAAFAAAAAAAfAAkAAAAFAAAAAAAgAAkAAAAGAAAAAAAnAAwAAAAEAAAAAAAoAAwAAAAFAAAAAAApAAwAAAAFAAAAAAAqAAwAAAAFAAAAAAArAAwAAAAFAAAAAAAsAAwAAAAFAAAAAAAtAAwAAAAGAAAAAAA0AAkAAAAEAAAAAAA1AAkAAAAFAAAAAAA2AAkAAAAFAAAAAAA3AAkAAAAFAAAAAAA4AAkAAAAGAAAAAAA=")
+tile_set = ExtResource("7_tileset")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=4340363 instance=ExtResource("1_player")]
+position = Vector2(40, 226)
+collision_layer = 2
+
+[node name="Goal" type="Area2D" parent="." unique_id=948575901 instance=ExtResource("2_goal")]
+position = Vector2(864, 124)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Checkpoint1" type="Area2D" parent="." unique_id=1177936013 instance=ExtResource("6_checkpoint")]
+position = Vector2(504, 124)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Enemies" type="Node2D" parent="." unique_id=691675838]
+
+[node name="Slime1" type="CharacterBody2D" parent="Enemies" unique_id=679136876 instance=ExtResource("4_slime")]
+position = Vector2(312, 171)
+collision_layer = 4
+script = ExtResource("9_que50")
+
+[node name="Slime2" type="CharacterBody2D" parent="Enemies" unique_id=1196184160 instance=ExtResource("4_slime")]
+position = Vector2(680, 187)
+collision_layer = 4
+script = ExtResource("9_que50")
+
+[node name="Slime3" type="CharacterBody2D" parent="Enemies" unique_id=894044935 instance=ExtResource("4_slime")]
+position = Vector2(720, 187)
+collision_layer = 4
+script = ExtResource("9_que50")
+
+[node name="Coins" type="Node2D" parent="." unique_id=49027156]
+
+[node name="Coin1" type="Area2D" parent="Coins" unique_id=1429222158 instance=ExtResource("5_coin")]
+position = Vector2(152, 198)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Coin2" type="Area2D" parent="Coins" unique_id=1649978730 instance=ExtResource("5_coin")]
+position = Vector2(312, 162)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Coin3" type="Area2D" parent="Coins" unique_id=810628197 instance=ExtResource("5_coin")]
+position = Vector2(496, 130)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Coin4" type="Area2D" parent="Coins" unique_id=1425128205 instance=ExtResource("5_coin")]
+position = Vector2(528, 130)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Coin5" type="Area2D" parent="Coins" unique_id=1851471281 instance=ExtResource("5_coin")]
+position = Vector2(680, 178)
+collision_layer = 0
+collision_mask = 2
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=2052789206]
+
+[node name="LivesLabel" type="Label" parent="HUD" unique_id=499353888]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 120.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Lives: 3"
+
+[node name="LevelLabel" type="Label" parent="HUD" unique_id=941685881]
+offset_left = 200.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Level 2"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="HUD" unique_id=719018265]
+offset_left = 360.0
+offset_top = 8.0
+offset_right = 470.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Score: 0"
+horizontal_alignment = 2

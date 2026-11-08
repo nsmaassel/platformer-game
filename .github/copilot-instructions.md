@@ -13,7 +13,9 @@ You are an expert in Godot 4, GDScript, 2D pixel-art game development, and Pytho
 - **Viewport:** 480×270 pixels, `canvas_items` stretch mode, `keep` aspect
 - **Texture filter:** Nearest (pixel-art — never use linear filtering)
 - **Art pipeline:** Python 3 + Pillow for procedural sprite generation (see `generate-sprites.py`)
+- **Walkthrough Artifact Standard:** After completing changes, generate/update `walkthrough.md` with level screenshots (`render-level-previews.py`), sprite contact sheets (`sprites-review.png`), and automated test logs (`test-game.ps1 -Validate` and `-Replay`).
 - **Deployment:** HTML5 export → `dist/` → GitHub Actions → Azure SWA
+
 
 ## Project Structure
 
@@ -32,6 +34,7 @@ assets/
 azure/                 Bicep templates for Azure SWA
 dist/                  HTML5 export output (gitignored, built locally)
 generate-sprites.py    Procedural sprite generator (Python + Pillow)
+test-game.ps1          Dev feedback loop (run/validate/smoke test)
 ```
 
 ## Architecture & Patterns
@@ -94,6 +97,39 @@ Add new levels by creating `level_N.tscn` — no code changes needed.
 7. **No `@tool` scripts** unless explicitly needed for editor visualization
 8. **Scene UIDs** — preserve existing `uid://` values when editing .tscn files; Godot uses them for cross-references
 
+## Testing Strategy
+
+Three tiers of automated testing, in order of priority:
+
+### Tier 1: Scene Validation (run always)
+`scripts/validate_levels.gd` — headless GDScript that loads every `level_*.tscn` and checks:
+- Required nodes exist (Player, Goal, Terrain, HUD with labels)
+- TileMapLayer has tile data (not empty/corrupt)
+- Player/Goal positions are above fall-death threshold (y < 300)
+- Goal is to the right of Player start
+- No overlapping entity positions (enemies/coins stacked)
+
+Run via: `./test-game.ps1 -Validate`
+Direct: `godot --headless --path . --script scripts/validate_levels.gd`
+Exit code: 0 = all pass, 1 = failures found.
+
+**Run validation after**: adding/editing levels, moving entities, modifying TileMaps.
+New levels are auto-discovered — no test code changes needed.
+
+### Tier 2: Visual Preview & Render Check
+- `python generate-sprites.py` — generates 45 PNG frames + `sprites-review.png` contact sheet.
+- `./test-game.ps1 -Preview` — runs `scripts/capture_previews.gd` to render level scenes to PNG screenshots (`logs/level_1_preview.png`).
+
+### Tier 3: Smoke Test (run regularly)
+`./test-game.ps1 -Headless` — launches headless import, checks for engine errors.
+Catches missing resources, script compilation errors, broken scene references.
+
+### Tier 4: Input Replay (planned)
+Deterministic playthrough recording using `--fixed-fps 60` + `Input.action_press()`.
+Record one "golden path" per level, replay to verify levels remain beatable.
+
+Not yet implemented — planned for when we have 3+ levels.
+
 ## Godot CLI Reference
 
 ```bash
@@ -105,6 +141,9 @@ godot --headless --export-release "Web" dist/index.html
 
 # Import resources (force re-import)
 godot --headless --import
+
+# Run level validation
+godot --headless --path . --script scripts/validate_levels.gd
 ```
 
 ## Git Workflow
@@ -120,3 +159,4 @@ Solo dev — commit directly to main. No PRs needed.
 - [README.md](../README.md) — Setup and controls
 - `.github/instructions/art-pipeline.instructions.md` — Procedural sprite generation details
 - `.github/instructions/godot.instructions.md` — Godot-specific patterns and gotchas
+- `scripts/validate_levels.gd` — Headless level validation (run with `--Validate` flag)

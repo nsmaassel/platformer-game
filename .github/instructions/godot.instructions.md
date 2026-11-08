@@ -48,3 +48,21 @@ When editing `.tscn` files programmatically or suggesting changes:
 4. **Polygon2D placeholders** — Some scenes have both AnimatedSprite2D (real sprites) and Polygon2D (colored shape placeholders). When sprites are loaded, set `AnimatedSprite2D.visible = true` and `Polygon2D.visible = false`.
 5. **`is_on_floor()` in `_physics_process`** — Must call `move_and_slide()` first for consistent results, OR check at start of frame and accept one-frame delay.
 6. **Scene changes** — Use `get_tree().change_scene_to_file()` for level transitions. `reload_current_scene()` for respawn.
+
+## Level Validation
+
+After adding or editing levels, run the validation suite:
+```bash
+godot --headless --path . --script scripts/validate_levels.gd
+# Or via test-game.ps1:
+./test-game.ps1 -Validate
+```
+
+The validator auto-discovers all `level_*.tscn` files and checks:
+- Required nodes: Player (CharacterBody2D), Goal (Area2D), Terrain (TileMapLayer), HUD (CanvasLayer) with LivesLabel and LevelLabel
+- TileMapLayer has tiles placed (not empty)
+- Player and Goal are above y=300 (fall-death is y=320)
+- Goal is to the right of Player start
+- No overlapping entity positions
+
+New levels are automatically included — no test code changes needed.

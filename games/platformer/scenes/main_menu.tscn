@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3mn8xhxj18d3"]
+
+[ext_resource type="Script" path="res://games/platformer/scripts/main_menu.gd" id="1_menu"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_menu")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.071, 0.122, 0.208, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -70.0
+offset_right = 100.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="Title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Nick's Platformer"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+
+[node name="HighScoreLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "High Score: 0"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
+
+[node name="LivesLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Lives remaining: 3"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12
+visible = false
+
+[node name="TacticsButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "⚔️ Play Game 1: Sun & Steel Tactics"
+
+[node name="BossArenaButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "⚔️ Play Hero vs. Boss Arena Prototype"
+
+[node name="VerticalSliceButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "★ Play Vertical Slice: Sunken Shrine"
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Platformer Game"
+
+[node name="ToyboxButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Opus Toybox Sandbox"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+

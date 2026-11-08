@@ -1,0 +1,109 @@
+[gd_scene load_steps=9 format=3 uid="uid://c7m9k2v1r4p8"]
+
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/goal.tscn" id="2_goal"]
+[ext_resource type="Script" path="res://games/platformer/scripts/level.gd" id="3_level"]
+[ext_resource type="TileSet" path="res://games/platformer/assets/tileset.tres" id="4_tileset"]
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/slime.tscn" id="5_slime"]
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/coin.tscn" id="6_coin"]
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/checkpoint.tscn" id="7_checkpoint"]
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/moving_platform.tscn" id="8_mplatform"]
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/spike.tscn" id="9_spike"]
+
+[node name="Level3" type="Node2D"]
+script = ExtResource("3_level")
+
+[node name="Sky" type="ColorRect" parent="."]
+offset_right = 1024.0
+offset_bottom = 270.0
+color = Color(0.45, 0.72, 0.9, 1)
+
+[node name="Terrain" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAQAA//////////8ABQAA//////////8ACQAA//////////8ADQAA//////////8AEQAA//////////8AFQAA//////////8AGQAA//////////8AHQAA//////////8AAwAA//////////8ABwAA//////////8ACwAA//////////8ADwAA//////////8AEwAA//////////8AFwAA//////////8AGwAA//////////8ABgAA//////////8ADgAA//////////8AEgAA//////////8AAA8AAAAAAAAAAAAAABAAAAABAAAAAAABAA8AAAAAAAAAAAABABAAAAABAAAAAAACAA8AAAAAAAAAAAACABAAAAABAAAAAAADAA8AAAAAAAAAAAADABAAAAABAAAAAAAEAA8AAAAAAAAAAAAEABAAAAABAAAAAAAFAA8AAAAAAAAAAAAFABAAAAABAAAAAAAGAA8AAAAAAAAAAAAGABAAAAABAAAAAAAHAA8AAAAAAAAAAAAHABAAAAABAAAAAAAIAA8AAAAAAAAAAAAIABAAAAABAAAAAAAJAA8AAAAAAAAAAAAJABAAAAABAAAAAAAKAA8AAAAAAAAAAAAKABAAAAABAAAAAAALAA8AAAAAAAAAAAALABAAAAABAAAAAAAMAA8AAAAAAAAAAAAMABAAAAABAAAAAAANAA8AAAAAAAAAAAANABAAAAABAAAAAAAOAA8AAAAAAAAAAAAOABAAAAABAAAAAAAPAA8AAAAAAAAAAAAPABAAAAABAAAAAAAQAA8AAAAAAAAAAAAQABAAAAABAAAAAAARAA8AAAAAAAAAAAARABAAAAABAAAAAAASAA8AAAAAAAAAAAASABAAAAABAAAAAAATAA8AAAAAAAAAAAATABAAAAABAAAAAAAUAA8AAAAAAAAAAAAUABAAAAABAAAAAAAVAA8AAAAAAAAAAAAVABAAAAABAAAAAAAWAA8AAAAAAAAAAAAWABAAAAABAAAAAAAXAA8AAAAAAAAAAAAXABAAAAABAAAAAAAYAA8AAAAAAAAAAAAYABAAAAABAAAAAAAZAA8AAAAAAAAAAAAZABAAAAABAAAAAAAaAA8AAAAAAAAAAAAaABAAAAABAAAAAAAbAA8AAAAAAAAAAAAbABAAAAABAAAAAAAcAA8AAAAAAAAAAAAcABAAAAABAAAAAAAdAA8AAAAAAAAAAAAdABAAAAABAAAAAAAFAAwAAAAEAAAAAAAGAAwAAAAFAAAAAAAHAAwAAAAFAAAAAAAIAAwAAAAFAAAAAAAJAAwAAAAGAAAAAAAOAAoAAAAEAAAAAAAPAAoAAAAFAAAAAAAQAAoAAAAFAAAAAAARAAoAAAAFAAAAAAASAAoAAAAFAAAAAAAUAAoAAAAGAAAAAAAYAAcAAAAEAAAAAAAZAAcAAAAFAAAAAAAaAAcAAAAFAAAAAAAbAAcAAAAFAAAAAAAcAAcAAAAGAAAAAAA=")
+tile_set = ExtResource("4_tileset")
+
+[node name="Player" type="CharacterBody2D" parent="." instance=ExtResource("1_player")]
+position = Vector2(40, 226)
+collision_layer = 2
+
+[node name="Goal" type="Area2D" parent="." instance=ExtResource("2_goal")]
+position = Vector2(900, 108)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Checkpoint1" type="Area2D" parent="." instance=ExtResource("7_checkpoint")]
+position = Vector2(460, 130)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="MovingPlatform1" type="AnimatableBody2D" parent="Platforms" instance=ExtResource("8_mplatform")]
+position = Vector2(130, 210)
+
+[node name="MovingPlatform2" type="AnimatableBody2D" parent="Platforms" instance=ExtResource("8_mplatform")]
+position = Vector2(240, 190)
+
+[node name="MovingPlatform3" type="AnimatableBody2D" parent="Platforms" instance=ExtResource("8_mplatform")]
+position = Vector2(350, 170)
+
+[node name="MovingPlatform4" type="AnimatableBody2D" parent="Platforms" instance=ExtResource("8_mplatform")]
+position = Vector2(460, 150)
+
+[node name="MovingPlatform5" type="AnimatableBody2D" parent="Platforms" instance=ExtResource("8_mplatform")]
+position = Vector2(570, 140)
+
+[node name="MovingPlatform6" type="AnimatableBody2D" parent="Platforms" instance=ExtResource("8_mplatform")]
+position = Vector2(680, 130)
+
+[node name="MovingPlatform7" type="AnimatableBody2D" parent="Platforms" instance=ExtResource("8_mplatform")]
+position = Vector2(790, 120)
+
+[node name="Spikes" type="Node2D" parent="."]
+
+[node name="Spike1" type="Area2D" parent="Spikes" instance=ExtResource("9_spike")]
+position = Vector2(300, 250)
+
+[node name="Spike2" type="Area2D" parent="Spikes" instance=ExtResource("9_spike")]
+position = Vector2(500, 250)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Slime1" type="CharacterBody2D" parent="Enemies" instance=ExtResource("5_slime")]
+position = Vector2(460, 120)
+
+[node name="Coins" type="Node2D" parent="."]
+
+[node name="Coin1" type="Area2D" parent="Coins" instance=ExtResource("6_coin")]
+position = Vector2(240, 160)
+
+[node name="Coin2" type="Area2D" parent="Coins" instance=ExtResource("6_coin")]
+position = Vector2(680, 100)
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="LivesLabel" type="Label" parent="HUD"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 120.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Lives: 3"
+
+[node name="LevelLabel" type="Label" parent="HUD"]
+offset_left = 200.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Level 3"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+offset_left = 360.0
+offset_top = 8.0
+offset_right = 470.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Score: 0"
+horizontal_alignment = 2

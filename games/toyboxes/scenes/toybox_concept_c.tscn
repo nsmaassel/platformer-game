@@ -1,0 +1,83 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7conceptc01"]
+
+[ext_resource type="Script" path="res://games/toyboxes/scripts/toybox_concept_c.gd" id="1_cc"]
+
+[node name="ToyboxConceptC" type="Node2D"]
+script = ExtResource("1_cc")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.12, 0.1, 0.18, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Grid" type="Node2D" parent="."]
+
+[node name="GridRect" type="ColorRect" parent="Grid"]
+offset_left = 44.0
+offset_top = 44.0
+offset_right = 316.0
+offset_bottom = 220.0
+color = Color(0.2, 0.25, 0.35, 0.3)
+
+[node name="CreatureUnit" type="Sprite2D" parent="."]
+position = Vector2(124, 124)
+
+[node name="Body" type="ColorRect" parent="CreatureUnit"]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(0.9, 0.5, 0.2, 1)
+
+[node name="Label" type="Label" parent="CreatureUnit"]
+offset_left = -30.0
+offset_top = -25.0
+offset_right = 30.0
+offset_bottom = -10.0
+text = "Ignis (Lv 5)"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 10
+
+[node name="EnemyUnit" type="Sprite2D" parent="."]
+position = Vector2(220, 124)
+
+[node name="Body" type="ColorRect" parent="EnemyUnit"]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(0.3, 0.7, 0.9, 1)
+
+[node name="HPLabel" type="Label" parent="EnemyUnit"]
+offset_left = -45.0
+offset_top = -25.0
+offset_right = 45.0
+offset_bottom = -10.0
+text = "Wild Vulpix HP: 120"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 10
+
+[node name="Cursor" type="Sprite2D" parent="."]
+position = Vector2(124, 124)
+
+[node name="Border" type="ReferenceRect" parent="Cursor"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+border_color = Color(1, 0.9, 0.2, 1)
+border_width = 2.0
+editor_only = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUDLabel" type="Label" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 470.0
+offset_bottom = 35.0
+text = "Fire Emblem x Pokémon Tactical Grid Prototype"
+theme_override_font_sizes/font_size = 10

@@ -1,0 +1,14 @@
+{
+  "_doc": "Master palette shared by both arms. Ramps run dark -> light with hue shifting (darks cooler, lights warmer). Every opaque pixel in every output PNG must be one of these colours. Do not edit; if a colour is missing, say so in your report.",
+  "ink":    ["#0e0b14", "#2a2433", "#4a4458", "#757087", "#a7a3b8", "#dcd9e6", "#ffffff"],
+  "steel":  ["#1c2638", "#31415a", "#4d6380", "#7590ad", "#a7c0d6", "#dbe8f2"],
+  "gold":   ["#3d1f0f", "#6e3a12", "#a8601a", "#d99a2b", "#f5cd5a", "#fff1a8"],
+  "crimson":["#2b0b17", "#591427", "#8f1f33", "#c7393d", "#ef6b5a"],
+  "ember":  ["#4a1505", "#8a2c06", "#d25312", "#f58a1f", "#ffc24a"],
+  "forest": ["#0f2219", "#1d3d26", "#2f6233", "#4f8c3f", "#86b85a", "#c4e08a"],
+  "teal":   ["#0c2a2e", "#12474c", "#1c6e6e", "#2f9e94", "#5ccbb6", "#a6f0dc"],
+  "blue":   ["#121a42", "#1f2f73", "#2f4fa8", "#4f7fd6", "#86b4f0"],
+  "violet": ["#24113a", "#422066", "#6a3596", "#9a58c4", "#c98ff0"],
+  "stone":  ["#1f1a1a", "#3a302c", "#5a4b42", "#7f6b5c", "#a8927d", "#d1bfa6"],
+  "skin":   ["#4a2a22", "#8a5040", "#c47f62", "#eab08f", "#ffd9bf"]
+}

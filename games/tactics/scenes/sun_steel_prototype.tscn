@@ -1,0 +1,126 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7sunsteel01"]
+
+[ext_resource type="Script" path="res://games/tactics/scripts/sun_steel_prototype.gd" id="1_ss"]
+
+[node name="SunSteelPrototype" type="Node2D"]
+script = ExtResource("1_ss")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.1, 0.14, 0.12, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(80, 140)
+
+[node name="Body" type="ColorRect" parent="Player"]
+offset_left = -8.0
+offset_top = -12.0
+offset_right = 8.0
+offset_bottom = 12.0
+color = Color(0.3, 0.7, 0.4, 1)
+
+[node name="Head" type="ColorRect" parent="Player"]
+offset_left = -6.0
+offset_top = -18.0
+offset_right = 6.0
+offset_bottom = -12.0
+color = Color(0.9, 0.8, 0.6, 1)
+
+[node name="Dummy" type="Sprite2D" parent="."]
+position = Vector2(280, 140)
+
+[node name="Body" type="ColorRect" parent="Dummy"]
+offset_left = -12.0
+offset_top = -16.0
+offset_right = 12.0
+offset_bottom = 16.0
+color = Color(0.6, 0.3, 0.5, 1)
+
+[node name="HPLabel" type="Label" parent="Dummy"]
+offset_left = -45.0
+offset_top = -32.0
+offset_right = 45.0
+offset_bottom = -17.0
+text = "Gargoyle HP: 150"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 10
+
+[node name="PuzzleTorch" type="Sprite2D" parent="."]
+position = Vector2(200, 70)
+modulate = Color(0.4, 0.4, 0.4, 1)
+
+[node name="Body" type="ColorRect" parent="PuzzleTorch"]
+offset_left = -6.0
+offset_top = -10.0
+offset_right = 6.0
+offset_bottom = 10.0
+color = Color(0.9, 0.6, 0.2, 1)
+
+[node name="Label" type="Label" parent="PuzzleTorch"]
+offset_left = -45.0
+offset_top = -25.0
+offset_right = 45.0
+offset_bottom = -10.0
+text = "Sun Torch: Unlit"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 10
+
+[node name="PointLight2D" type="PointLight2D" parent="PuzzleTorch"]
+enabled = false
+energy = 1.5
+color = Color(1, 0.7, 0.3, 1)
+
+[node name="PuzzleWater" type="ColorRect" parent="."]
+offset_left = 170.0
+offset_top = 180.0
+offset_right = 230.0
+offset_bottom = 210.0
+color = Color(0.1, 0.3, 0.7, 0.7)
+
+[node name="Label" type="Label" parent="PuzzleWater"]
+offset_left = -20.0
+offset_top = 8.0
+offset_right = 80.0
+offset_bottom = 23.0
+text = "Water (Blocked)"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 9
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="TitleLabel" type="Label" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 470.0
+offset_bottom = 23.0
+text = "SUN & STEEL — Flagship Action RPG Prototype"
+theme_override_font_sizes/font_size = 11
+
+[node name="ClassLabel" type="Label" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 23.0
+offset_right = 470.0
+offset_bottom = 38.0
+text = "CLASS: Apprentice (Rank 1)  |  ATK: 15  |  EXP: 0/50"
+theme_override_font_sizes/font_size = 10
+
+[node name="SpiritLabel" type="Label" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 38.0
+offset_right = 470.0
+offset_bottom = 53.0
+text = "EQUIPPED SPIRIT: [Flame Spirit (Ignite/Burn)]"
+theme_override_font_sizes/font_size = 10
+
+[node name="InstructionsLabel" type="Label" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 225.0
+offset_right = 470.0
+offset_bottom = 265.0
+text = "[WASD/Arrows] Move  |  [J/Space] Attack  |  [K/Shift] Cast Magic
+[E] Swap Spirit Gem  |  [P] Rank-Up Class Promotion  |  [Esc] Toybox Menu"
+theme_override_font_sizes/font_size = 9

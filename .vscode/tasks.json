@@ -4,10 +4,18 @@
     {
       "label": "🎮 Run Game",
       "type": "shell",
-      "command": "godot",
-      "args": ["--path", ".", "--main-scene", "scenes/main_menu.tscn"],
+      "command": "powershell",
+      "args": ["-ExecutionPolicy", "Bypass", "-File", ".\\test-game.ps1"],
       "group": "build",
-      "detail": "Launch the game from main menu"
+      "detail": "Launch the game directly from main menu"
+    },
+    {
+      "label": "✅ Validate Levels & Jump Reach",
+      "type": "shell",
+      "command": "powershell",
+      "args": ["-ExecutionPolicy", "Bypass", "-File", ".\\test-game.ps1", "-Validate"],
+      "group": "test",
+      "detail": "Run headless level structure & platform jump gap validator"
     },
     {
       "label": "🎨 Generate Sprites",
@@ -15,15 +23,31 @@
       "command": "python",
       "args": ["generate-sprites.py"],
       "group": "build",
-      "detail": "Regenerate all procedural sprites (Python + Pillow)"
+      "detail": "Regenerate all 53 procedural sprites + contact sheet (Python + Pillow)"
     },
     {
-      "label": "📦 Export HTML5",
+      "label": "🔊 Synthesize Sound Effects",
       "type": "shell",
-      "command": "godot",
-      "args": ["--headless", "--export-release", "Web", "dist/index.html"],
+      "command": "python",
+      "args": ["generate-sfx.py"],
       "group": "build",
-      "detail": "Export game as HTML5 to dist/ for deployment"
+      "detail": "Synthesize all 6 procedural chiptune WAV sound effects"
+    },
+    {
+      "label": "📸 Render Level Screenshots",
+      "type": "shell",
+      "command": "python",
+      "args": ["render-level-previews.py"],
+      "group": "build",
+      "detail": "Render composite PNG map screenshots of all levels"
+    },
+    {
+      "label": "🏃 Run Input Replay Suite",
+      "type": "shell",
+      "command": "powershell",
+      "args": ["-ExecutionPolicy", "Bypass", "-File", ".\\test-game.ps1", "-Replay"],
+      "group": "test",
+      "detail": "Run automated physics playthrough replay verification"
     },
     {
       "label": "🔄 Re-import Assets",
@@ -31,7 +55,7 @@
       "command": "godot",
       "args": ["--headless", "--import"],
       "group": "none",
-      "detail": "Force Godot to re-import all assets (run after adding new PNGs externally)"
+      "detail": "Force Godot to re-import all assets"
     }
   ]
 }

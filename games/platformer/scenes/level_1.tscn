@@ -1,0 +1,91 @@
+[gd_scene format=4]
+
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://games/platformer/scenes/goal.tscn" id="2_goal"]
+[ext_resource type="Script" path="res://games/platformer/scripts/level.gd" id="3_level"]
+[ext_resource type="TileSet" path="res://games/platformer/assets/tileset.tres" id="4_tileset"]
+[ext_resource type="Texture2D" path="res://games/platformer/assets/sprites/bg/cloud_left.png" id="5_cloud_l"]
+[ext_resource type="Texture2D" path="res://games/platformer/assets/sprites/bg/cloud_right.png" id="6_cloud_r"]
+[ext_resource type="Texture2D" path="res://games/platformer/assets/sprites/bg/bush.png" id="7_bush"]
+
+[node name="Level1" type="Node2D" unique_id=1932993636]
+script = ExtResource("3_level")
+level_width = 512
+
+
+[node name="Sky" type="ColorRect" parent="." unique_id=1776845183]
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.53, 0.81, 0.92, 1)
+
+[node name="Cloud1L" type="Sprite2D" parent="." unique_id=849772165]
+texture_filter = 1
+position = Vector2(60, 40)
+texture = ExtResource("5_cloud_l")
+
+[node name="Cloud1R" type="Sprite2D" parent="." unique_id=1754213077]
+texture_filter = 1
+position = Vector2(76, 40)
+texture = ExtResource("6_cloud_r")
+
+[node name="Cloud2L" type="Sprite2D" parent="." unique_id=1524630328]
+texture_filter = 1
+position = Vector2(300, 60)
+texture = ExtResource("5_cloud_l")
+
+[node name="Cloud2R" type="Sprite2D" parent="." unique_id=1604148699]
+texture_filter = 1
+position = Vector2(316, 60)
+texture = ExtResource("6_cloud_r")
+
+[node name="Bush1" type="Sprite2D" parent="." unique_id=1767607827]
+texture_filter = 1
+position = Vector2(200, 234)
+texture = ExtResource("7_bush")
+
+[node name="Bush2" type="Sprite2D" parent="." unique_id=1176154969]
+texture_filter = 1
+position = Vector2(350, 234)
+texture = ExtResource("7_bush")
+
+[node name="Terrain" type="TileMapLayer" parent="." unique_id=1408015766]
+tile_map_data = PackedByteArray("AAAAAQAA//////////8ABQAA//////////8ACQAA//////////8ADQAA//////////8AEQAA//////////8AFQAA//////////8AGQAA//////////8AHQAA//////////8AAwAA//////////8ABwAA//////////8ACwAA//////////8ADwAA//////////8AEwAA//////////8AFwAA//////////8AGwAA//////////8ABgAA//////////8ADgAA//////////8AEgAA//////////8AAA8AAAAAAAAAAAAAABAAAAABAAAAAAABAA8AAAAAAAAAAAABABAAAAABAAAAAAACAA8AAAAAAAAAAAACABAAAAABAAAAAAADAA8AAAAAAAAAAAADABAAAAABAAAAAAAEAA8AAAAAAAAAAAAEABAAAAABAAAAAAAFAA8AAAAAAAAAAAAFABAAAAABAAAAAAAGAA8AAAAAAAAAAAAGABAAAAABAAAAAAAHAA8AAAAAAAAAAAAHABAAAAABAAAAAAAIAA8AAAAAAAAAAAAIABAAAAABAAAAAAAJAA8AAAAAAAAAAAAJABAAAAABAAAAAAAKAA8AAAAAAAAAAAAKABAAAAABAAAAAAALAA8AAAAAAAAAAAALABAAAAABAAAAAAAMAA8AAAAAAAAAAAAMABAAAAABAAAAAAANAA8AAAAAAAAAAAANABAAAAABAAAAAAAOAA8AAAAAAAAAAAAOABAAAAABAAAAAAAPAA8AAAAAAAAAAAAPABAAAAABAAAAAAAQAA8AAAAAAAAAAAAQABAAAAABAAAAAAARAA8AAAAAAAAAAAARABAAAAABAAAAAAASAA8AAAAAAAAAAAASABAAAAABAAAAAAATAA8AAAAAAAAAAAATABAAAAABAAAAAAAUAA8AAAAAAAAAAAAUABAAAAABAAAAAAAVAA8AAAAAAAAAAAAVABAAAAABAAAAAAAWAA8AAAAAAAAAAAAWABAAAAABAAAAAAAXAA8AAAAAAAAAAAAXABAAAAABAAAAAAAYAA8AAAAAAAAAAAAYABAAAAABAAAAAAAZAA8AAAAAAAAAAAAZABAAAAABAAAAAAAaAA8AAAAAAAAAAAAaABAAAAABAAAAAAAbAA8AAAAAAAAAAAAbABAAAAABAAAAAAAcAA8AAAAAAAAAAAAcABAAAAABAAAAAAAdAA8AAAAAAAAAAAAdABAAAAABAAAAAAAFAAwAAAAEAAAAAAAGAAwAAAAFAAAAAAAHAAwAAAAFAAAAAAAIAAwAAAAFAAAAAAAJAAwAAAAGAAAAAAAOAAoAAAAEAAAAAAAPAAoAAAAFAAAAAAAQAAoAAAAFAAAAAAARAAoAAAAFAAAAAAASAAoAAAAFAAAAAAATAAoAAAAFAAAAAAAUAAoAAAAGAAAAAAAYAAcAAAAEAAAAAAAZAAcAAAAFAAAAAAAaAAcAAAAFAAAAAAAbAAcAAAAFAAAAAAAcAAcAAAAGAAAAAAA=")
+tile_set = ExtResource("4_tileset")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=1982477023 instance=ExtResource("1_player")]
+position = Vector2(40, 226)
+collision_layer = 2
+
+[node name="Goal" type="Area2D" parent="." unique_id=182449319 instance=ExtResource("2_goal")]
+position = Vector2(416, 92)
+collision_layer = 0
+collision_mask = 2
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1323208472]
+
+[node name="LivesLabel" type="Label" parent="HUD" unique_id=834412122]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 120.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Lives: 3"
+
+[node name="LevelLabel" type="Label" parent="HUD" unique_id=126260011]
+offset_left = 200.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Level 1"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="HUD" unique_id=1582910482]
+offset_left = 360.0
+offset_top = 8.0
+offset_right = 470.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 12
+text = "Score: 0"
+horizontal_alignment = 2
+

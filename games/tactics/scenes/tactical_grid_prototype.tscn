@@ -1,0 +1,86 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctactics01"]
+
+[ext_resource type="Script" path="res://games/tactics/scripts/tactical_grid_prototype.gd" id="1_tgp"]
+
+[node name="TacticalGridPrototype" type="Node2D"]
+script = ExtResource("1_tgp")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.06, 0.08, 0.12, 1)
+mouse_filter = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="TileContainer" type="Node2D" parent="."]
+
+[node name="HighlightContainer" type="Node2D" parent="."]
+
+[node name="UnitContainer" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUDTurnLabel" type="Label" parent="CanvasLayer"]
+offset_left = 302.0
+offset_top = 10.0
+offset_right = 474.0
+offset_bottom = 26.0
+text = "CURRENT TURN: PLAYER"
+theme_override_colors/font_color = Color(0.3, 0.8, 1.0, 1)
+theme_override_font_sizes/font_size = 11
+
+[node name="HUDUnitInfo" type="Label" parent="CanvasLayer"]
+offset_left = 302.0
+offset_top = 60.0
+offset_right = 474.0
+offset_bottom = 196.0
+text = "Click a hero to move, attack, heal or use an ability."
+autowrap_mode = 3
+theme_override_font_sizes/font_size = 9
+
+[node name="BtnEndTurn" type="Button" parent="CanvasLayer"]
+offset_left = 302.0
+offset_top = 232.0
+offset_right = 474.0
+offset_bottom = 255.0
+text = "END TURN ▶"
+theme_override_font_sizes/font_size = 9
+
+[node name="BtnAbility" type="Button" parent="CanvasLayer"]
+visible = false
+offset_left = 302.0
+offset_top = 204.0
+offset_right = 474.0
+offset_bottom = 227.0
+text = "🔥 FIREBALL"
+theme_override_font_sizes/font_size = 8
+
+[node name="BtnMainMenu" type="Button" parent="CanvasLayer"]
+offset_left = 384.0
+offset_top = 30.0
+offset_right = 474.0
+offset_bottom = 50.0
+text = "◀ MAIN MENU"
+theme_override_font_sizes/font_size = 8
+
+[node name="VictoryLabel" type="Label" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -20.0
+offset_right = 160.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "🏆 TACTICAL VICTORY! ALL ENEMIES ELIMINATED 🏆"
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_font_sizes/font_size = 11

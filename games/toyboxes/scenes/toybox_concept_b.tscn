@@ -1,0 +1,85 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7conceptb01"]
+
+[ext_resource type="Script" path="res://games/toyboxes/scripts/toybox_concept_b.gd" id="1_cb"]
+
+[node name="ToyboxConceptB" type="Node2D"]
+script = ExtResource("1_cb")
+
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.08, 0.12, 0.22, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="GridContainer" type="Node2D" parent="."]
+
+[node name="PlayerSide" type="ColorRect" parent="GridContainer"]
+offset_left = 100.0
+offset_top = 95.0
+offset_right = 220.0
+offset_bottom = 185.0
+color = Color(0.1, 0.3, 0.6, 0.4)
+
+[node name="EnemySide" type="ColorRect" parent="GridContainer"]
+offset_left = 220.0
+offset_top = 95.0
+offset_right = 340.0
+offset_bottom = 185.0
+color = Color(0.6, 0.2, 0.2, 0.4)
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(160, 140)
+
+[node name="Body" type="ColorRect" parent="Player"]
+offset_left = -10.0
+offset_top = -12.0
+offset_right = 10.0
+offset_bottom = 12.0
+color = Color(0.2, 0.6, 0.9, 1)
+
+[node name="Visor" type="ColorRect" parent="Player"]
+offset_left = 0.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = -2.0
+color = Color(0.9, 0.9, 0.2, 1)
+
+[node name="Enemy" type="Sprite2D" parent="."]
+position = Vector2(280, 140)
+
+[node name="Body" type="ColorRect" parent="Enemy"]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+color = Color(0.9, 0.3, 0.2, 1)
+
+[node name="HPLabel" type="Label" parent="Enemy"]
+offset_left = -45.0
+offset_top = -30.0
+offset_right = 45.0
+offset_bottom = -15.0
+text = "Mettaur HP: 200"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 10
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUDLabel" type="Label" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 470.0
+offset_bottom = 35.0
+text = "Mega Man Battle Network Prototype"
+theme_override_font_sizes/font_size = 10
+
+[node name="ChipLabel" type="Label" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 230.0
+offset_right = 470.0
+offset_bottom = 255.0
+text = "READY CHIP: [Cyber Sword (100 Dmg)]"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 12

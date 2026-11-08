@@ -1,0 +1,121 @@
+{
+  "_doc": "THE CONTRACT for Sun & Steel sprites. Names, sizes and frame counts are binding. Raw AI images: games/tactics/art/raw/<name>.png; converted sprites: games/tactics/assets/sprites/sun_steel/<name>.<frame>.png (frame index from 0).",
+  "game": {
+    "viewport": [
+      480,
+      270
+    ],
+    "filter": "nearest, 1 texel = 1 logical pixel (no mixed pixel densities)",
+    "board": "12 x 10 cells of 24 x 24 px (288 x 240), camera 3/4 top-down like a handheld tactics game",
+    "unit_anchor": "unit sprites are 32 x 32; the unit stands centred on its 24 px cell with its feet on rows 28-30 of the canvas, so heads may overlap the cell above",
+    "light": "single light from the top-left; 1 px dark outline (ink.0 or the darkest step of the local ramp; selective outlining allowed)",
+    "idle_animation": "4 frames at about 6 fps; frames must differ visibly but keep the same silhouette centre and feet row",
+    "humanoid_height": "humanoid heroes share one body height: target_height px from the top of the head (or helmet/hood) to the soles, before the 1 px outline, so the roster reads at one scale"
+  },
+  "sprites": [
+    {
+      "name": "unit_sun_knight",
+      "kind": "unit",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 4,
+      "theme": "fantasy",
+      "brief": "Player hero, tank class. Heavy plate armour in steel ramp with gold trim, a round sun emblem on a tall shield (gold), a crimson cape, longsword held low. Faces the viewer, turned slightly right (3/4). Idle: 1 px breathing bob, cape hem sways, the sun emblem glints on one frame.",
+      "target_height": 28
+    },
+    {
+      "name": "unit_golem",
+      "kind": "unit",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 4,
+      "theme": "fantasy enemy",
+      "brief": "Enemy. A hulking basalt golem (stone ramp, darker and heavier than the heroes) with magma cracks (ember ramp) and a glowing core in the chest, small head sunk between huge shoulders, fists near the ground. Faces the viewer, turned slightly left. Idle: shoulders heave 1 px, cracks and core pulse brighter on two frames. Must read as enemy at a glance against the heroes."
+    },
+    {
+      "name": "unit_pyromancer",
+      "kind": "unit",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 4,
+      "theme": "fantasy",
+      "target_height": 28,
+      "brief": "Player hero, ranged area-damage caster. Hooded battle-mage in crimson and ember robes with gold trim, a long staff topped with a burning orb (ember/gold), a small flame curling in the free hand. Faces the viewer, turned slightly right (3/4). Idle: robe hem sways, the staff flame flickers through 3 shapes, embers rise."
+    },
+    {
+      "name": "unit_frost_blade",
+      "kind": "unit",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 4,
+      "theme": "fantasy",
+      "target_height": 28,
+      "brief": "Player hero, fast melee duelist. Light armour in blue ramp with steel plates, a short fur-trimmed half-cape, a slim curved ice blade (teal/white) held ready. Faces the viewer, turned slightly right (3/4), lighter stance than the knight. Idle: weight shifts 1 px, blade edge glints, frost motes drift.",
+      "pending": "not generated yet: the image model's quota ran out on 2026-11-08; queued prompts are at the end of games/tactics/art/PROMPTS.md"
+    },
+    {
+      "name": "unit_ranger",
+      "kind": "unit",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 4,
+      "theme": "fantasy",
+      "target_height": 28,
+      "brief": "Player hero, long-range archer. Hooded scout in forest-green cloak over brown leather (stone ramp), a tall longbow held vertically at the side (not drawn out wide), quiver on the back, gold sun clasp. Faces the viewer, turned slightly right (3/4). Idle: cloak sways, fingers tap the string, hood shadow shifts.",
+      "pending": "not generated yet: the image model's quota ran out on 2026-11-08; queued prompts are at the end of games/tactics/art/PROMPTS.md"
+    },
+    {
+      "name": "unit_cleric",
+      "kind": "unit",
+      "size": [
+        32,
+        32
+      ],
+      "frames": 4,
+      "theme": "fantasy",
+      "target_height": 28,
+      "brief": "Player hero, healer. Priest in pale robes (ink light ramp, near-white) with gold sun vestments, a short mace or sceptre topped with a sun disc, a soft gold halo glow near the hands. Faces the viewer, turned slightly right (3/4). Idle: robe sways, the sun disc pulses, small light motes.",
+      "pending": "not generated yet: the image model's quota ran out on 2026-11-08; queued prompts are at the end of games/tactics/art/PROMPTS.md"
+    },
+    {
+      "name": "tile_floor",
+      "kind": "tile",
+      "size": [
+        24,
+        24
+      ],
+      "frames": 1,
+      "brief": "Shrine floor: weathered flagstones (stone ramp), low contrast and low saturation so units pop. Must tile seamlessly with itself in any grid (edges wrap). Structured detail (seams, chips, a few cracks), no random speckle."
+    },
+    {
+      "name": "tile_lava",
+      "kind": "tile",
+      "size": [
+        24,
+        24
+      ],
+      "frames": 4,
+      "brief": "Hazard: molten lava (ember + gold ramps) with darker crust plates that drift between frames. Must tile seamlessly with itself on every frame. Brighter than the floor so the hazard is unmistakable."
+    },
+    {
+      "name": "prop_cover_rock",
+      "kind": "prop",
+      "size": [
+        24,
+        24
+      ],
+      "frames": 1,
+      "brief": "Cover: a waist-high boulder (stone ramp) with a little moss (forest ramp), transparent background, placed on top of tile_floor. Short shadow toward the bottom-right drawn with opaque dark pixels (ordered dither allowed). Fills roughly the lower two-thirds of the cell."
+    }
+  ]
+}
