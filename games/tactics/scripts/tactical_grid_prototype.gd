@@ -15,7 +15,8 @@ const CELL_HALF := Vector2(TacticalBoard.GRID_SIZE / 2.0 - 1.0, TacticalBoard.GR
 const SUN_STEEL := "res://games/tactics/assets/sprites/sun_steel/"
 const UNIT_ART_OFFSET := Vector2(0, -3)
 const MAX_ART_FRAMES := 16
-## HP bars sit just above a 32 px unit's head.
+## HP bars: HP_BAR_OFFSET places a placeholder's bar; Sun & Steel units get theirs from _hp_bar_offset (just above
+## the art, since the chibi heroes differ in height). The backing frame sits HP_BAR_OFFSET - HP_BG_OFFSET from the bar.
 const HP_BG_OFFSET := Vector2(9, 23)
 const HP_BAR_OFFSET := Vector2(8, 22)
 ## Unit art drawn facing left (flip logic assumes right-facing art).
@@ -157,6 +158,19 @@ func _make_frames(art: String, fps: float) -> SpriteFrames:
 	_frames_cache[key] = frames
 	return frames
 
+## Offset from the cell centre to the unit's HP bar: the bar's backing frame ends 1 px above the top opaque row of
+## the unit's first frame, so a short lamb and a tall-eared bunny both get a bar just over their heads. Cached per
+## SpriteFrames, which units of one art type share.
+var _hp_offset_cache: Dictionary = {}
+func _hp_bar_offset(frames: SpriteFrames) -> Vector2:
+	if frames == null:
+		return HP_BAR_OFFSET
+	if not _hp_offset_cache.has(frames):
+		var img: Image = frames.get_frame_texture("default", 0).get_image()
+		var art_top := img.get_height() / 2.0 - UNIT_ART_OFFSET.y - img.get_used_rect().position.y  # centre to art top
+		_hp_offset_cache[frames] = Vector2(HP_BAR_OFFSET.x, art_top + 4.0)  # 2 px bar + 1 px frame + 1 px gap
+	return _hp_offset_cache[frames]
+
 func _spawn_initial_units() -> void:
 	_create_unit("p1", "Sun Knight", "Knight", "PLAYER", Vector2i(2, 2), 45, 14, 3, 1, tex_hero_apprentice, "unit_sun_knight")
 	_create_unit("p2", "Pyromancer", "Mage", "PLAYER", Vector2i(2, 7), 30, 18, 2, 3, tex_hero_pyro, "unit_pyromancer")
@@ -178,7 +192,9 @@ func _create_unit(id: String, uname: String, uclass: String, team: String, grid_
 		anim.sprite_frames = frames
 		anim.offset = UNIT_ART_OFFSET
 		anim.play("default")
-		anim.frame = (grid_pos.x + grid_pos.y) % frames.get_frame_count("default")  # desynchronise idle loops
+		# Each unit starts its idle on the next frame along, so the party doesn't bob and blink in unison (five
+		# heroes on four frames: at most two share a bob, and with the spec's blink frames at most two share a blink).
+		anim.frame = active_units.size() % frames.get_frame_count("default")
 		sprite = anim
 	else:
 		var placeholder := Sprite2D.new()
@@ -192,9 +208,10 @@ func _create_unit(id: String, uname: String, uclass: String, team: String, grid_
 	sprite.position = board.grid_to_world(grid_pos)
 	unit_container.add_child(sprite)
 
+	var hp_offset := _hp_bar_offset(frames)
 	var hp_bar = ColorRect.new()
 	hp_bar.size = Vector2(16, 2)
-	hp_bar.position = board.grid_to_world(grid_pos) - HP_BAR_OFFSET
+	hp_bar.position = board.grid_to_world(grid_pos) - hp_offset
 	hp_bar.color = Color(0.2, 0.9, 0.3)
 	hp_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	unit_container.add_child(hp_bar)
@@ -211,7 +228,7 @@ func _create_unit(id: String, uname: String, uclass: String, team: String, grid_
 	active_units.append({
 		"id": id, "name": uname, "class": uclass, "team": team, "pos": grid_pos,
 		"hp": hp, "max_hp": hp, "atk": atk, "move_range": move_r, "atk_range": atk_r,
-		"has_acted": false, "is_moving": false, "sprite": sprite, "hp_bar": hp_bar,
+		"has_acted": false, "is_moving": false, "sprite": sprite, "hp_bar": hp_bar, "hp_offset": hp_offset,
 		"animated": frames != null, "art_faces_left": frames != null and ART_FACES_LEFT.has(art)
 	})
 	# Player units face right, enemy units face left
@@ -312,7 +329,7 @@ func _move_unit(unit: Dictionary, target_grid: Vector2i) -> void:
 
 		var tween = create_tween()
 		tween.tween_property(sprite, "position", world_p, 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		if hp_bar: tween.parallel().tween_property(hp_bar, "position", world_p - HP_BAR_OFFSET, 0.2)
+		if hp_bar: tween.parallel().tween_property(hp_bar, "position", world_p - unit["hp_offset"], 0.2)
 		tween.tween_callback(func(): unit["is_moving"] = false)
 
 	if board.terrain_map.get(target_grid) == "LAVA":
@@ -404,7 +421,7 @@ func _execute_shield_bash(target_grid: Vector2i) -> void:
 		if board.is_valid_grid(pushed_pos) and _get_unit_at(pushed_pos).is_empty():
 			defender["pos"] = pushed_pos
 			if defender["sprite"]: defender["sprite"].position = board.grid_to_world(pushed_pos)
-			if defender["hp_bar"]: defender["hp_bar"].position = board.grid_to_world(pushed_pos) - HP_BAR_OFFSET
+			if defender["hp_bar"]: defender["hp_bar"].position = board.grid_to_world(pushed_pos) - defender["hp_offset"]
 		JuiceEffects.flash_sprite(defender["sprite"], Color(0.8, 0.2, 0.9), 0.3)
 		if defender["hp"] <= 0: _destroy_unit(defender)
 	_play_sfx("hit")
@@ -416,7 +433,7 @@ func _execute_ice_dash(target_grid: Vector2i) -> void:
 	var start_pos = selected_unit["pos"]
 	selected_unit["pos"] = target_grid
 	if selected_unit["sprite"]: selected_unit["sprite"].position = board.grid_to_world(target_grid)
-	if selected_unit["hp_bar"]: selected_unit["hp_bar"].position = board.grid_to_world(target_grid) - HP_BAR_OFFSET
+	if selected_unit["hp_bar"]: selected_unit["hp_bar"].position = board.grid_to_world(target_grid) - selected_unit["hp_offset"]
 	
 	var path_dir = (target_grid - start_pos)
 	var steps = max(abs(path_dir.x), abs(path_dir.y))
@@ -546,7 +563,7 @@ func _run_enemy_ai() -> void:
 			if move_result["move_pos"] != unit["pos"]:
 				unit["pos"] = move_result["move_pos"]
 				if unit["sprite"]: unit["sprite"].position = board.grid_to_world(unit["pos"])
-				if unit["hp_bar"]: unit["hp_bar"].position = board.grid_to_world(unit["pos"]) - HP_BAR_OFFSET
+				if unit["hp_bar"]: unit["hp_bar"].position = board.grid_to_world(unit["pos"]) - unit["hp_offset"]
 			if not move_result["attack_target"].is_empty():
 				_attack_unit(unit, move_result["attack_target"])
 

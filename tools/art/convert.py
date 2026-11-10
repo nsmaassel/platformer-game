@@ -255,10 +255,16 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--name")
     a = ap.parse_args()
+    chained = next((s for s in load_spec()["sprites"] if s["name"] == a.name and s.get("chain")), None)
+    if chained:
+        print(f"{a.name} is built from its chain: python tools/art/rebuild.py --name {a.name}")
+        return 0
     OUT.mkdir(parents=True, exist_ok=True)
     log = {"processed": [], "missing": [], "fallbacks": []}
     for spr in load_spec()["sprites"]:
         if a.name and spr["name"] != a.name:
+            continue
+        if spr.get("chain"):  # built by rebuild.py from its chain (the chibi heroes), not converted here
             continue
         mode, files = find_raw(spr["name"], spr["frames"])
         if not mode:

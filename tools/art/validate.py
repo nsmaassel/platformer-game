@@ -59,10 +59,28 @@ def seam_ok(img: Image.Image) -> tuple[bool, str]:
     return ok, f"seam x={sx:.1f} (limit {lx:.1f}) y={sy:.1f} (limit {ly:.1f})"
 
 
+def flicker(a: Image.Image, b: Image.Image) -> int:
+    """Pixels of frame b that differ from frame a once the idle bob is allowed for.
+
+    Each row of b is compared with the same row of a and with the row above it (the bob moves everything above the
+    feet down 1 px), and the smaller count is taken. A blink or a glint costs a handful; an AI pose redrawn with
+    different ear linings or fur flecks costs dozens, because a recoloured fleck still differs from both rows.
+    """
+    w, h = a.size
+    pa, pb = a.load(), b.load()
+    n = 0
+    for y in range(h):
+        same = sum(pb[x, y] != pa[x, y] for x in range(w))
+        down = sum(pb[x, y] != pa[x, y - 1] for x in range(w)) if y else w
+        n += min(same, down)
+    return n
+
+
 def check_sprite(out: Path, spr: dict, problems: list[str], hashes: bool) -> None:
     name, (W, H), n = spr["name"], spr["size"], spr["frames"]
     kind = spr["kind"]
     frames = []
+    images = []
     for f in range(n):
         path = out / f"{name}.{f}.png"
         if not path.exists():
@@ -111,6 +129,10 @@ def check_sprite(out: Path, spr: dict, problems: list[str], hashes: bool) -> Non
         if not opaque:
             problems.append(f"{name}.{f}: empty sprite")
         frames.append((img.tobytes(), opaque))
+        images.append(img)
+    extra = out / f"{name}.{n}.png"
+    if extra.exists():
+        problems.append(f"{name}.{n}: extra frame {extra.relative_to(ROOT)} (the game plays every numbered frame)")
 
     if n > 1 and len(frames) == n:
         unique = len({b for b, _ in frames})
@@ -129,6 +151,13 @@ def check_sprite(out: Path, spr: dict, problems: list[str], hashes: bool) -> Non
                 low = max(y for _, y in op)
                 if abs(low - low0) > 1:
                     problems.append(f"{name}.{i}: feet row {low} vs {low0} on frame 0")
+        budget = spr.get("max_flicker")
+        if budget is not None:
+            for i, img in enumerate(images[1:], 1):
+                moved = flicker(images[0], img)
+                if moved > budget:
+                    problems.append(f"{name}.{i}: {moved} pixels change vs frame 0 beyond a 1 px bob (max {budget}); "
+                                    "the poses differ in small details, which flickers when animated")
 
 
 def main() -> int:

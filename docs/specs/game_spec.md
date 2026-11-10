@@ -41,14 +41,14 @@
 
 ---
 
-## 🎨 3. Art Pipeline (TICKET-05, revised 2026-11-08)
-- **Route**: AI-generated source images from Antigravity's built-in `generate_image` (one image per sprite: a row of idle poses on flat magenta), converted deterministically into contract sprites. Details: `tools/art/README.md`.
-- **Contract & gate**: `tools/art/spec/sprites.json` (names, sizes, frames, anchors, art direction) and `tools/art/spec/palette.json` (62 colours); `tools/art/validate.py` checks sizes, binary alpha, palette-only pixels, feet row, stable idle frames, the shared 28 px hero height and seamless tiles.
-- **Converter**: `tools/art/convert.py` (background removal, frame split, one scale per sprite, palette snap, 1 px outline, anchoring; tiles get an edge cross-fade).
+## 🎨 3. Art Pipeline (TICKET-05, revised 2026-11-08 and 2026-11-09)
+- **Route**: AI concept images from Antigravity's built-in `generate_image` (one image per sprite: a row of idle poses on flat magenta). The heroes and golems are a chibi animal party (approved 2026-11-09, for the owner's kids): each is built by a recorded `chain` of deterministic tools (`crisp_convert`, `touchup`, `eye_pass`, `mane_pass`, `idle_bob`, or `draw_chibi` for designs drawn in code) run by `tools/art/rebuild.py`. Tiles and the rock prop use `tools/art/convert.py`. Details: `tools/art/README.md`; lessons: `tools/art/LESSONS.md`.
+- **Contract & gate**: `tools/art/spec/sprites.json` (names, sizes, frames, anchors, art direction) and `tools/art/spec/palette.json` (62 colours); `tools/art/validate.py` checks sizes, binary alpha, palette-only pixels, feet row, stable idle frames, each hero's `target_height`, idle flicker (`max_flicker`) and seamless tiles; `tools/art/rebuild.py --check` proves the committed party sprites still come from their chains.
+- **Converters**: `tools/art/crisp_convert.py` for characters (palette clusters, majority-colour downscale); `tools/art/convert.py` for tiles and props (background removal, frame split, one scale per sprite, palette snap, 1 px outline, anchoring; tiles get an edge cross-fade).
 - **Provenance**: every prompt in `games/tactics/art/PROMPTS.md`; kept sources in `games/tactics/art/raw/`.
 - **Output**: `games/tactics/assets/sprites/sun_steel/<name>.<frame>.png` (32×32 units with 4 idle frames, 24×24 tiles and props).
 - **Why**: a blind A/B against agent-drawn code sprites under the same contract; the owner picked the AI-image set ([review page](https://claude.ai/artifact/GtaUbQiKZym7X3L5sc3RC1), private). Retro Diffusion / PixelLab were not adopted.
-- **Roster theme**: fantasy (Sun Knight, Pyromancer, Frost Blade, Ranger, Cleric vs Golems). The August mech prototype art and its code names were removed on 2026-11-08; relics (`PartyManager.apply_relic`) replace the mech modules.
+- **Roster theme**: fantasy (Sun Knight, Pyromancer, Frost Blade, Ranger, Cleric vs Golems), drawn as chibi animals since 2026-11-09: lion cub knight, red panda mage, snow leopard swordfighter, bunny archer, lamb healer vs pebble golems. The 28 px adult heroes of 2026-11-08 were replaced; their raw images are in git history. The August mech prototype art and its code names were removed on 2026-11-08; relics (`PartyManager.apply_relic`) replace the mech modules.
 - **In game**: the tactics prototype (`tactical_grid_prototype`) uses 24 px square cells (`GRID_SIZE`) and draws the Sun & Steel sprites as animated units and tiles: all five heroes and the golems (a unit without art would fall back to its August placeholder).
 - **Open**: the floor tile repeats visibly; lava animation is a scroll of one image; the shrine slice and boss arena still use August art.
 - **Decoupled Engine Slot-In**: Node logic stays decoupled from PNG files so regenerated sprites drop in by name.

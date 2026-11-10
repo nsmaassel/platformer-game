@@ -1,48 +1,6 @@
 {
   "processed": [
     {
-      "name": "unit_sun_knight",
-      "mode": "single",
-      "raw": [
-        "unit_sun_knight.png"
-      ]
-    },
-    {
-      "name": "unit_golem",
-      "mode": "single",
-      "raw": [
-        "unit_golem.png"
-      ]
-    },
-    {
-      "name": "unit_pyromancer",
-      "mode": "single",
-      "raw": [
-        "unit_pyromancer.png"
-      ]
-    },
-    {
-      "name": "unit_frost_blade",
-      "mode": "single",
-      "raw": [
-        "unit_frost_blade.png"
-      ]
-    },
-    {
-      "name": "unit_ranger",
-      "mode": "single",
-      "raw": [
-        "unit_ranger.png"
-      ]
-    },
-    {
-      "name": "unit_cleric",
-      "mode": "single",
-      "raw": [
-        "unit_cleric.png"
-      ]
-    },
-    {
       "name": "tile_floor",
       "mode": "single",
       "raw": [

@@ -26,6 +26,12 @@ Changes in this round:
 6. **Full hero roster.** The Frost Blade, Ranger and Cleric were generated after the image quota reset, with the Sun
    Knight as the reference image, so all five heroes and the golems now play with Sun & Steel art and no placeholder
    remains on the tactics board.
+7. **Chibi animal party (2026-11-09).** The owner's kids found the adult heroes hard to connect with, so the heroes
+   and golems were redrawn as cute chibi animals and approved: lion cub Sun Knight, red panda Pyromancer, snow
+   leopard Frost Blade, bunny Ranger, lamb Cleric and pebble golems. Each sprite is built by the `chain` in its spec
+   entry (`tools/art/rebuild.py`); new tools `crisp_convert`, `touchup`, `eye_pass`, `mane_pass`, `idle_bob` and
+   `draw_chibi`; `validate.py` gained the `max_flicker` gate. In the game, each unit starts its idle on a different
+   frame and its HP bar sits just above its own art. Lessons: `tools/art/LESSONS.md`.
 
 No franchise names remain in tracked files (checked with a case-insensitive `git grep` for the removed names).
 `render-level-previews.py` copies previews to an extra folder only when `PREVIEW_COPY_DIR` is set (it used to write
@@ -54,6 +60,7 @@ Headless runs cannot capture the viewport, so `logs/tactics_live.png` comes from
 | Pixel audit | `.\test-game.ps1 -Pixel` | audit passed (lossless imports, crisp edges) |
 | Previews | `python tools/python_scripts/generate-sprites.py` then `.\test-game.ps1 -Preview` | generator runs without its mech sections; all previews rendered |
 | Art contract | `python tools/art/validate.py` | `PASS: 30 files, 0 problems` (full roster, nothing pending) |
+| Party chains | `python tools/art/rebuild.py --check` | `PASS: 6 sprites match their chains` |
 
 Known and unchanged from before this round: the Godot stderr logs of `-Validate` (30) and `-Replay` (14) contain
 `Identifier not found: GameState` compile errors, because `--script` runs do not load autoloads, and the headless

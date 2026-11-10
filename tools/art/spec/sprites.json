@@ -1,5 +1,5 @@
 {
-  "_doc": "THE CONTRACT for Sun & Steel sprites. Names, sizes and frame counts are binding. Raw AI images: games/tactics/art/raw/<name>.png; converted sprites: games/tactics/assets/sprites/sun_steel/<name>.<frame>.png (frame index from 0).",
+  "_doc": "THE CONTRACT for Sun & Steel sprites. Names, sizes and frame counts are binding. Raw AI images: games/tactics/art/raw/<name>.png (converted by tools/art/convert.py) or <name>_chibi.png (the chibi party's concepts); sprites: games/tactics/assets/sprites/sun_steel/<name>.<frame>.png (frame index from 0). A sprite with a \"chain\" is built by tools/art/rebuild.py from those exact tool steps (run from the repo root; rebuild.py adds --work) instead of convert.py. max_flicker caps how many pixels any frame may change against frame 0 beyond a 1 px bob, so idle frames can't flicker.",
   "game": {
     "viewport": [
       480,
@@ -9,8 +9,8 @@
     "board": "12 x 10 cells of 24 x 24 px (288 x 240), camera 3/4 top-down like a handheld tactics game",
     "unit_anchor": "unit sprites are 32 x 32; the unit stands centred on its 24 px cell with its feet on rows 28-30 of the canvas, so heads may overlap the cell above",
     "light": "single light from the top-left; 1 px dark outline (ink.0 or the darkest step of the local ramp; selective outlining allowed)",
-    "idle_animation": "4 frames at about 6 fps; frames must differ visibly but keep the same silhouette centre and feet row",
-    "humanoid_height": "humanoid heroes share one body height: target_height px from the top of the head (or helmet/hood) to the soles, before the 1 px outline, so the roster reads at one scale"
+    "idle_animation": "4 frames at about 6 fps; the chibi party holds one pose and adds a 1 px bob on frames 1-2 plus a blink on a different frame per hero (the game starts each unit on a different frame); same silhouette centre and feet row",
+    "humanoid_height": "each hero has its own target_height (px from the top of the head, mane or ears to the soles, before the 1 px outline): the chibi party is about 21-23 px, and tall ears or a mane raise a sprite's target on purpose, with the reason in its brief"
   },
   "sprites": [
     {
@@ -21,9 +21,17 @@
         32
       ],
       "frames": 4,
-      "theme": "fantasy",
-      "brief": "Player hero, tank class. Heavy plate armour in steel ramp with gold trim, a round sun emblem on a tall shield (gold), a crimson cape, longsword held low. Faces the viewer, turned slightly right (3/4). Idle: 1 px breathing bob, cape hem sways, the sun emblem glints on one frame.",
-      "target_height": 28
+      "theme": "fantasy chibi",
+      "brief": "Player hero, tank class: a lion cub knight in steel plate with gold trim, a crimson cape, a gold sun buckler and a short sword. The code mane pass grows a spiky sun-ray mane so it reads as a lion at 1x; --crown 2 lets the mane rise 2 px above the AI head (the first version's top was clipped flat), so target_height is 23, not 21. Faces right (3/4). Held on frame 0. Held key pose: every frame starts as one cleaned frame (touchup.py --lock with the whole canvas), so ear linings, fur flecks and robe folds that the AI drew differently in each pose don't flicker; eye_pass.py adds 2x3 eyes with a highlight, cheeks and the blink, and idle_bob.py adds the motion last (everything above the feet drops 1 px on frames 1-2). Blinks on frame 3.",
+      "target_height": 23,
+      "max_flicker": 16,
+      "chain": [
+        "crisp_convert.py games/tactics/art/raw/unit_sun_knight_chibi.png unit_sun_knight_crisp --height 21 --colours 24",
+        "touchup.py unit_sun_knight_crisp unit_sun_knight_key --lock 0,0,31,31 --from 0",
+        "eye_pass.py unit_sun_knight_key unit_sun_knight_eyes",
+        "mane_pass.py unit_sun_knight_eyes unit_sun_knight_mane --style spiky --crown 2",
+        "idle_bob.py unit_sun_knight_mane unit_sun_knight"
+      ]
     },
     {
       "name": "unit_golem",
@@ -33,8 +41,13 @@
         32
       ],
       "frames": 4,
-      "theme": "fantasy enemy",
-      "brief": "Enemy. A hulking basalt golem (stone ramp, darker and heavier than the heroes) with magma cracks (ember ramp) and a glowing core in the chest, small head sunk between huge shoulders, fists near the ground. Faces the viewer, turned slightly left. Idle: shoulders heave 1 px, cracks and core pulse brighter on two frames. Must read as enemy at a glance against the heroes."
+      "theme": "fantasy chibi enemy",
+      "brief": "Enemy: a cute grumpy pebble golem of round chunky basalt stones with ember eyes, stubby arms and a moss tuft, darker than the heroes so it reads as the enemy at 1x. Faces the viewer, turned slightly left. Drawn in code by tools/art/draw_chibi.py from the concept in games/tactics/art/raw/unit_golem_chibi.png, because its pale or glowing design turned to speckle in crisp_convert.py; it matches the converted heroes (1 px ink outline, 2x3 eyes with a white highlight, rosy cheeks). Idle: 1 px squash, ember eyes flicker. max_flicker is 24, not 16: the squash and the flickering ember eyes are deliberate motion beyond a bob (13-20 pixels per frame).",
+      "target_height": 23,
+      "max_flicker": 24,
+      "chain": [
+        "draw_chibi.py unit_golem"
+      ]
     },
     {
       "name": "unit_pyromancer",
@@ -44,9 +57,16 @@
         32
       ],
       "frames": 4,
-      "theme": "fantasy",
-      "target_height": 28,
-      "brief": "Player hero, ranged area-damage caster. Hooded battle-mage in crimson and ember robes with gold trim, a long staff topped with a burning orb (ember/gold), a small flame curling in the free hand. Faces the viewer, turned slightly right (3/4). Idle: robe hem sways, the staff flame flickers through 3 shapes, embers rise."
+      "theme": "fantasy chibi",
+      "brief": "Player hero, mage: a red panda cub in a crimson robe with gold trim, a ringed tail and a staff with an ember orb. Held on frame 1, the frame with the cleanest face; the recolour fixes violet strays from the palette snap and the patches give the muzzle a clean white edge. Faces right (3/4). Held key pose: every frame starts as one cleaned frame (touchup.py --lock with the whole canvas), so ear linings, fur flecks and robe folds that the AI drew differently in each pose don't flicker; eye_pass.py adds 2x3 eyes with a highlight, cheeks and the blink, and idle_bob.py adds the motion last (everything above the feet drops 1 px on frames 1-2). Blinks on frame 1.",
+      "target_height": 22,
+      "max_flicker": 16,
+      "chain": [
+        "crisp_convert.py games/tactics/art/raw/unit_pyromancer_chibi.png unit_pyromancer_crisp --height 22 --colours 24 --rows 190,560 --dark-share 0.5 --align head",
+        "touchup.py unit_pyromancer_crisp unit_pyromancer_key --lock 0,0,31,31 --from 1 --recolour violet.3=ember.3,violet.4=ember.4 --patch 17,16=ink.6;21,16=ink.6;22,16=ink.6;16,17=ink.6;17,17=ink.6;15,18=ink.6;16,18=ink.6",
+        "eye_pass.py unit_pyromancer_key unit_pyromancer_eyes --eyes 15,20,15 --blink 1",
+        "idle_bob.py unit_pyromancer_eyes unit_pyromancer"
+      ]
     },
     {
       "name": "unit_frost_blade",
@@ -56,9 +76,13 @@
         32
       ],
       "frames": 4,
-      "theme": "fantasy",
-      "target_height": 28,
-      "brief": "Player hero, fast melee duelist. Light armour in blue ramp with steel plates, a short fur-trimmed half-cape, a slim curved ice blade (teal/white) held ready. Faces the viewer, turned slightly right (3/4), lighter stance than the knight. Idle: weight shifts 1 px, blade edge glints, frost motes drift."
+      "theme": "fantasy chibi",
+      "brief": "Player hero, spellblade: a snow leopard cub swordfighter with pale blue-grey fur, a big clear white face, small round ears, dark rosettes, a big-cat muzzle and a thick ringed tail curling up behind, in bright blue armour with one steel shoulder plate and a short scarf, holding a pale cyan crystal sword. Faces right (3/4). Drawn in code by tools/art/draw_chibi.py from the concept in games/tactics/art/raw/unit_frost_blade_chibi.png, because its pale or glowing design turned to speckle in crisp_convert.py; it matches the converted heroes (1 px ink outline, 2x3 eyes with a white highlight, rosy cheeks). Idle: 1 px bob, blink on frame 3, a sword glint.",
+      "target_height": 21,
+      "max_flicker": 16,
+      "chain": [
+        "draw_chibi.py unit_frost_blade"
+      ]
     },
     {
       "name": "unit_ranger",
@@ -68,9 +92,16 @@
         32
       ],
       "frames": 4,
-      "theme": "fantasy",
+      "theme": "fantasy chibi",
+      "brief": "Player hero, ranger: a bunny archer with honey-tan fur, very tall ears through a forest-green hood and cloak, a gold sun clasp and a small bow. The tall ears are the bunny's silhouette, so target_height is 28 with the ears. Held on frame 0, the frame with the tidiest ears; five patches give the right ear the same two-pixel lining as the left. Faces right (3/4). Held key pose: every frame starts as one cleaned frame (touchup.py --lock with the whole canvas), so ear linings, fur flecks and robe folds that the AI drew differently in each pose don't flicker; eye_pass.py adds 2x3 eyes with a highlight, cheeks and the blink, and idle_bob.py adds the motion last (everything above the feet drops 1 px on frames 1-2). Blinks on frame 2.",
       "target_height": 28,
-      "brief": "Player hero, long-range archer. Hooded scout in forest-green cloak over brown leather (stone ramp), a tall longbow held vertically at the side (not drawn out wide), quiver on the back, gold sun clasp. Faces the viewer, turned slightly right (3/4). Idle: cloak sways, fingers tap the string, hood shadow shifts."
+      "max_flicker": 16,
+      "chain": [
+        "crisp_convert.py games/tactics/art/raw/unit_ranger_chibi.png unit_ranger_crisp --height 28 --colours 24 --dark-share 0.5 --align head",
+        "touchup.py unit_ranger_crisp unit_ranger_key --lock 0,0,31,31 --from 0 --patch 20,4=skin.3;20,7=skin.3;18,8=gold.4;18,9=gold.4;19,9=gold.4",
+        "eye_pass.py unit_ranger_key unit_ranger_eyes --eyes 14,18,16 --blink 2",
+        "idle_bob.py unit_ranger_eyes unit_ranger"
+      ]
     },
     {
       "name": "unit_cleric",
@@ -80,9 +111,13 @@
         32
       ],
       "frames": 4,
-      "theme": "fantasy",
-      "target_height": 28,
-      "brief": "Player hero, healer. Priest in pale robes (ink light ramp, near-white) with gold sun vestments, a short mace or sceptre topped with a sun disc, a soft gold halo glow near the hands. Faces the viewer, turned slightly right (3/4). Idle: robe sways, the sun disc pulses, small light motes."
+      "theme": "fantasy chibi",
+      "brief": "Player hero, healer: a lamb with white wool as a few big smooth puffs, a large clear cream face, small floppy ears and curled gold horns, in a white robe with wide gold trim and a gold sun pendant, holding a short gold sceptre topped with a sun disc. Faces right (3/4). Drawn in code by tools/art/draw_chibi.py from the concept in games/tactics/art/raw/unit_cleric_chibi.png, because its pale or glowing design turned to speckle in crisp_convert.py; it matches the converted heroes (1 px ink outline, 2x3 eyes with a white highlight, rosy cheeks). Idle: 1 px bob, blink on frame 1, the sun disc twinkles.",
+      "target_height": 21,
+      "max_flicker": 16,
+      "chain": [
+        "draw_chibi.py unit_cleric"
+      ]
     },
     {
       "name": "tile_floor",
